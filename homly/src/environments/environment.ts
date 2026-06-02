@@ -1,3 +1,3 @@
 export const environment = {
-    apiUrl: 'http://localhost:8080/api'
+    apiUrl: 'https://homly-production-0388.up.railway.app/api'
 };
