@@ -13,6 +13,7 @@ import com.proyectoIntermodular.repository.PropertyRepository;
 import com.proyectoIntermodular.repository.PropertyImageRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PropertyService {
@@ -52,6 +53,7 @@ public class PropertyService {
         return repository.save(existing);
     }
 
+    @Transactional
     public void delete(Long id) {
         imageRepository.deleteByPropertyId(id);
         repository.deleteById(id);
