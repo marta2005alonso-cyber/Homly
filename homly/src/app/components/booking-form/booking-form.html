@@ -1,0 +1,52 @@
+<div class="page-wrapper">
+    <button class="btn-back" (click)="goBack()" type="button">← Volver</button>
+
+    <div class="container">
+        <h2>Editar reserva</h2>
+
+        <form class="form" [formGroup]="form" (ngSubmit)="save()">
+
+            <div class="form-field">
+                <label>Fecha de entrada</label>
+                <input type="date" [value]="checkIn" readonly style="background:#f0ebe4; cursor:not-allowed;" />
+            </div>
+
+            <div class="form-field">
+                <label>Fecha de salida</label>
+                <input type="date" [value]="checkOut" readonly style="background:#f0ebe4; cursor:not-allowed;" />
+            </div>
+
+            <div class="form-field">
+                <label>Número de personas</label>
+                <input type="number" formControlName="numberOfGuests" min="1" />
+                @if (form.get('numberOfGuests')?.invalid && (form.get('numberOfGuests')?.dirty || form.get('numberOfGuests')?.touched)) {
+                    @if (form.get('numberOfGuests')?.errors?.['required']) {
+                        <div class="error">El número de personas es obligatorio</div>
+                    }
+                    @if (form.get('numberOfGuests')?.errors?.['min']) {
+                        <div class="error">El número de personas debe ser mínimo 1</div>
+                    }
+                    @if (form.get('numberOfGuests')?.errors?.['max']) {
+                        <div class="error">El número de personas supera el máximo permitido</div>
+                    }
+
+                }
+            </div>
+
+            <p *ngIf="totalPrice > 0 && !isExchange">Precio total: <strong>{{ totalPrice }}€</strong></p>
+            <button type="submit" class="btn-save" [disabled]="!form.valid">Guardar cambios</button>
+
+        </form>
+    </div>
+
+    <div class="modal-overlay" *ngIf="showSaveModal">
+        <div class="modal">
+            <h3>Guardar cambios</h3>
+            <p>¿Estás seguro de que quieres guardar los cambios de esta reserva?</p>
+            <div class="modal-actions">
+                <button class="btn-confirm" (click)="confirmSave()">Sí, guardar</button>
+                <button class="btn-cancel-modal" (click)="showSaveModal = false">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>

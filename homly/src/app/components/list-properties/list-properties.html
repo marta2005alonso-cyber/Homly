@@ -1,0 +1,16 @@
+<div class="page-wrapper">
+    <button class="btn-back" (click)="goBack()">← Volver</button>
+    <h2>Alojamientos disponibles</h2>
+    <p class="no-results" *ngIf="properties.length === 0">No hay alojamientos disponibles</p>
+    <div class="property-card" *ngFor="let property of properties" (click)="showDetails(property.id)">
+        <div>
+            <p class="property-name">{{ property.name }}</p>
+            <p class="property-location">{{ property.city }}, {{ property.country }}</p>
+            <p class="property-price">{{ property.pricePerNight }}€/noche</p>
+            <p class="property-guests">Máx. {{ property.maxGuests }} personas</p>
+            <p class="property-type" *ngIf="property.type === 'RENT'">🏠 Alquiler</p>
+            <p class="property-type" *ngIf="property.type === 'EXCHANGE'">🔄 Intercambio</p>
+            <p class="property-type" *ngIf="property.type === 'BOTH'">🏠 Alquiler · 🔄 Intercambio</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,79 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Georgia, serif;
+    color: #3a2e2e;
+}
+
+.container {
+    max-width: 400px;
+    margin: 60px auto;
+    padding: 40px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+h2 {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+input {
+    border: 1px solid #ddd;
+    border-radius: 50px;
+    padding: 12px 20px;
+    outline: none;
+    font-size: 0.95rem;
+}
+
+button {
+    background: #e07b54;
+    border: none;
+    border-radius: 50px;
+    padding: 12px;
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+button:hover {
+    background: #c96640;
+}
+
+.error {
+    color: red;
+    font-size: 0.85rem;
+    text-align: center;
+}
+
+.link {
+    text-align: center;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #e07b54;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+/*OCULTAR LAS FLECHITAS DEL CAMPO NUMBER DEL TELEFONO*/
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}

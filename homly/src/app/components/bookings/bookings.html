@@ -1,0 +1,56 @@
+<div class="page-wrapper">
+    <button class="btn-back" (click)="goHome()">← Volver</button>
+
+    <div class="container">
+        <h2>Mis reservas</h2>
+
+        <p class="no-bookings" *ngIf="bookings.length === 0">No tienes reservas todavía</p>
+
+        <div class="booking-card" *ngFor="let booking of bookings">
+            <div class="booking-info">
+                <h3>{{ booking.property.name }}</h3>
+                <p class="booking-location">{{ booking.property.city }}, {{ booking.property.country }}</p>
+                <div class="booking-dates">
+                    <span>📅 {{ booking.checkIn }} → {{ booking.checkOut }}</span>
+                    <span>👥 {{ booking.numberOfGuests }} personas</span>
+                </div>
+                <p class="booking-price">Total: <strong>{{ booking.totalPrice }}€</strong></p>
+                <span class="booking-status" [ngClass]="{
+                    'status-pending': booking.status === 'PENDING',
+                    'status-confirmed': booking.status === 'CONFIRMED'
+                }">
+                    {{ booking.status === 'CONFIRMED' && isExpired(booking.checkOut) ? 'FINALIZADA' : booking.status }}
+                </span>
+            </div>
+            <div class="booking-actions">
+                <button class="btn-edit" (click)="editBooking(booking.id)"
+                    [disabled]="isOneDayBefore(booking.checkIn) || isExpired(booking.checkOut)">✏️ Editar</button>
+                <button class="btn-cancel" (click)="confirmCancel(booking.id)"
+                    [disabled]="isOneDayBefore(booking.checkIn) || isExpired(booking.checkOut)">
+                    {{ booking.status === 'PENDING' ? 'Borrar' : 'Cancelar' }}
+                </button>
+            </div>
+
+            <ng-container *ngIf="booking.status === 'CONFIRMED' && isExpired(booking.checkOut)">
+                <button class="btn-review" *ngIf="!getReviewByBooking(booking.id)" (click)="addReview(booking.id)">
+                    ⭐ Valorar
+                </button>
+                <button class="btn-review" *ngIf="getReviewByBooking(booking.id)" (click)="addReview(booking.id)">
+                    ✏️ Editar valoración
+                </button>
+            </ng-container>
+        </div>
+    </div>
+
+    <div class="modal-overlay" *ngIf="showCancelModal">
+        <div class="modal">
+            <h3>{{ isPending(selectedBookingId) ? 'Borrar solicitud' : 'Cancelar reserva' }}</h3>
+            <p>¿Estás seguro?</p>
+            <div class="modal-actions">
+                <button class="btn-confirm" style="background: #c0392b;" (click)="cancelBooking()">Sí</button>
+                <button class="btn-cancel-modal" (click)="showCancelModal = false">Volver</button>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,27 @@
+<nav>
+    <span class="logo">HOMLY</span>
+    <div class="nav-icons">
+        <span *ngIf="user" (click)="goToFavorites()">⭐</span>
+        <span *ngIf="user" (click)="goToBookings()">📅 Reservas</span>
+        <span *ngIf="!user" (click)="goToLogin()">👤 Iniciar sesión</span>
+        <span *ngIf="user" (click)="goToMyProperties()">🏠 Viviendas</span>
+        <span *ngIf="user" (click)="goToProfile()">👤 {{ user.name }}</span>
+    </div>
+</nav>
+
+<div>
+    <h1>Bienvenido a HOMLY</h1>
+
+    <div>
+        <input type="text" placeholder="¿A dónde vas?" [(ngModel)]="search.destination" />
+        <input type="date" [(ngModel)]="search.checkIn" [min]="getToday()" />
+        <input type="date" [(ngModel)]="search.checkOut" [min]="getMinCheckOut()" />
+        <input type="number" placeholder="Personas" [(ngModel)]="search.guests" />
+        <select [(ngModel)]="search.type">
+            <option value="">Tipo</option>
+            <option value="RENT">Alquiler</option>
+            <option value="EXCHANGE">Intercambio</option>
+        </select>
+        <button (click)="onSearch()">Buscar</button>
+    </div>
+</div>

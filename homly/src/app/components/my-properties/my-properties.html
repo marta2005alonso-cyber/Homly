@@ -1,0 +1,50 @@
+<div class="page-wrapper">
+    <button class="btn-back" (click)="goHome()">← Volver</button>
+
+    <div class="container">
+        <div class="header">
+            <h2>Mis alojamientos</h2>
+            <button class="btn-add" (click)="addProperty()">+ Publicar alojamiento</button>
+        </div>
+
+        <p *ngIf="properties.length === 0">No tienes alojamientos publicados todavía</p>
+
+        <div class="property-card" *ngFor="let property of properties">
+            <div class="property-info">
+                <p class="property-name" (click)="viewDetail(property.id)" style="cursor: pointer;">{{ property.name }}</p>
+                <p class="property-location">{{ property.city }}, {{ property.country }}</p>
+                <p class="property-price">{{ property.pricePerNight }}€/noche</p>
+                <p class="property-type" *ngIf="property.type === 'RENT'">🏠 Alquiler</p>
+                <p class="property-type" *ngIf="property.type === 'EXCHANGE'">🔄 Intercambio</p>
+                <p class="property-type" *ngIf="property.type === 'BOTH'">🏠 Alquiler · 🔄 Intercambio</p>
+            </div>
+            <div class="property-actions">
+                <button class="btn-bookings" (click)="viewBookings(property.id)">📅 Reservas</button>
+                <button class="btn-requests" (click)="viewRequests(property.id)">🔄 Pendientes</button>
+                <button class="btn-edit" (click)="editProperty(property.id)">✏️ Editar</button>
+                <button class="btn-delete" (click)="deleteProperty(property.id)">🗑 Eliminar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" *ngIf="showDeleteModal">
+        <div class="modal">
+            <h3>Eliminar alojamiento</h3>
+            <p>¿Estás segura de que quieres eliminar este alojamiento?</p>
+            <div class="modal-actions">
+                <button class="btn-confirm" (click)="confirmDeleteProperty()">Sí, eliminar</button>
+                <button class="btn-cancel-modal" (click)="showDeleteModal = false">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" *ngIf="showErrorModal">
+        <div class="modal">
+            <h3>No se puede eliminar</h3>
+            <p>Este alojamiento tiene reservas asociadas. Cancélalas antes de eliminarlo.</p>
+            <div class="modal-actions">
+                <button class="btn-cancel-modal" (click)="showErrorModal = false">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

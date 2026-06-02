@@ -1,0 +1,193 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Georgia, serif;
+    color: #3a2e2e;
+}
+
+body {
+    background: #faf7f2;
+}
+
+.container {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 0 40px 40px;
+}
+
+.btn-back {
+    background: none;
+    border: 1px solid #3a2e2e;
+    border-radius: 20px;
+    padding: 8px 16px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.btn-back:hover {
+    background: #3a2e2e;
+    color: white;
+}
+
+h2 {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.info-item label {
+    font-size: 0.8rem;
+    color: #888;
+    display: block;
+}
+
+.info-item p {
+    font-weight: bold;
+    margin-top: 4px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+input {
+    border: 1px solid #ddd;
+    border-radius: 50px;
+    padding: 12px 20px;
+    outline: none;
+    font-size: 0.95rem;
+}
+
+.btn-edit, .btn-save {
+    background: #e07b54;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 24px;
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.btn-edit:hover, .btn-save:hover {
+    background: #c96640;
+}
+
+.error {
+    color: red;
+    font-size: 0.85rem;
+}
+
+.btn-logout {
+    background: #c0392b;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 24px;
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+.btn-logout:hover {
+    background: #a93226;
+}
+
+.btn-delete-account {
+    background: none;
+    border: 1px solid #c0392b;
+    border-radius: 50px;
+    padding: 12px 24px;
+    color: #c0392b;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 10px;
+    width: 100%;
+    transition: all 0.2s;
+}
+
+.btn-delete-account:hover {
+    background: #c0392b;
+    color: white;
+}
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.modal {
+    background: white;
+    border-radius: 20px;
+    padding: 36px;
+    width: 380px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+}
+
+.modal h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+    border: none;
+    padding: 0;
+}
+
+.modal p {
+    color: #5a4a44;
+    font-size: 0.95rem;
+    margin-bottom: 24px;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.btn-confirm {
+    background: #2c2420;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 24px;
+    color: white;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.btn-confirm:hover {
+    background: #4a3830;
+}
+
+.btn-cancel-modal {
+    background: none;
+    border: 1px solid #e0d8d0;
+    border-radius: 50px;
+    padding: 12px 24px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.btn-cancel-modal:hover {
+    background: #f0ebe4;
+}

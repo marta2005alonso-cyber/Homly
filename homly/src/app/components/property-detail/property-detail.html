@@ -1,0 +1,105 @@
+<div class="page-wrapper">
+
+    <button class="btn-back" (click)="goBack()">← Volver</button>
+
+    <div class="container" *ngIf="property">
+        <h2>{{ property.name }}</h2>
+        <p class="location">{{ property.address }}, {{ property.city }} {{ property.country }}</p>
+        <p class="description">{{ property.description }}</p>
+
+        <div class="info-grid">
+            <div class="info-item">
+                <label>Precio</label>
+                <p class="price">{{ property.pricePerNight }}€/noche</p>
+            </div>
+            <div class="info-item">
+                <label>Máx. personas</label>
+                <p>{{ property.maxGuests }}</p>
+            </div>
+            <div class="info-item">
+                <label>Hora de entrada</label>
+                <p>{{ property.entryTime }}</p>
+            </div>
+            <div class="info-item">
+                <label>Hora de salida</label>
+                <p>{{ property.departureTime }}</p>
+            </div>
+            <button class="btn-favorite" [class.active]="isFavorite" (click)="addFavorite()">⭐</button>
+
+            <div class="info-item">
+                <label>Tipo</label>
+                <p *ngIf="property.type === 'RENT'">🏠 Alquiler</p>
+                <p *ngIf="property.type === 'EXCHANGE'">🔄 Intercambio</p>
+                <p *ngIf="property.type === 'BOTH'">🏠 Alquiler · 🔄 Intercambio</p>
+            </div>
+        </div>
+
+        <h3>Valoraciones</h3>
+        <div class="review-card" *ngFor="let review of reviews">
+            <p>⭐ {{ review.rating }}/5</p>
+            <p>{{ review.comment }}</p>
+            <div class="review-footer">
+                <span class="review-author">{{ review.booking.user.name }} {{ review.booking.user.firstName }}</span>
+                <span class="review-date">{{ review.date }}</span>
+            </div>
+        </div>
+
+        <div class="booking-form">
+            <h3>Hacer una reserva</h3>
+
+            <div class="type-selector" *ngIf="property.type === 'BOTH'">
+                <button [class.active]="selectedType === 'RENT'" (click)="selectedType = 'RENT'">🏠 Alquilar</button>
+                <button [class.active]="selectedType === 'EXCHANGE'"
+                    (click)="selectedType = 'EXCHANGE'; loadUserProperties()">🔄 Intercambiar</button>
+            </div>
+
+            <div class="booking-fields"
+                *ngIf="property.type === 'RENT' || property.type === 'EXCHANGE' || selectedType !== ''">
+                <div class="booking-field">
+                    <label>Entrada</label>
+                    <input type="date" [(ngModel)]="checkIn" [min]="getToday()" (change)="calculatePrice()" />
+                </div>
+                <div class="booking-field">
+                    <label>Salida</label>
+                    <input type="date" [(ngModel)]="checkOut" [min]="getMinCheckOut()" (change)="calculatePrice()" />
+                </div>
+                <div class="booking-field">
+                    <label>Personas</label>
+                    <input type="number" [(ngModel)]="guests" min="1" [max]="property.maxGuests" />
+                </div>
+            </div>
+
+            <div class="offered-property" *ngIf="property.type === 'EXCHANGE' || selectedType === 'EXCHANGE'">
+                <h4>¿Qué casa ofreces a cambio?</h4>
+                <p *ngIf="userProperties.length === 0">No tienes propiedades publicadas</p>
+                <div class="offered-card" *ngFor="let p of userProperties"
+                    [class.selected]="selectedOfferedProperty?.id === p.id" (click)="selectedOfferedProperty = p">
+                    <p class="offered-name">{{ p.name }}</p>
+                    <p class="offered-location">{{ p.city }}, {{ p.country }}</p>
+                </div>
+            </div>
+
+            <p class="date-error" *ngIf="dateError">⚠️ {{ dateError }}</p>
+
+            <p class="total-price"
+                *ngIf="totalPrice > 0 && property.type !== 'EXCHANGE' && selectedType !== 'EXCHANGE'">
+                Total: <strong>{{ totalPrice }}€</strong>
+            </p>
+
+            <button class="btn-reserve" *ngIf="property.type !== 'BOTH' || selectedType !== ''" (click)="reserve()">
+                {{ property.type === 'EXCHANGE' || selectedType === 'EXCHANGE' ? 'Solicitar intercambio' : 'Reservar' }}
+            </button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" *ngIf="showSuccessModal">
+        <div class="modal">
+            <h3>{{ selectedType === 'EXCHANGE' || property?.type === 'EXCHANGE' ? '¡Solicitud enviada!' : '¡Reserva realizada!' }}</h3>
+            <p>{{ selectedType === 'EXCHANGE' || property?.type === 'EXCHANGE' ? 'Tu solicitud de intercambio está pendiente de aceptación.' : 'Tu reserva se ha realizado correctamente.' }}</p>
+            <div class="modal-actions">
+                <button class="btn-confirm" (click)="goToBookings()">Ver mis reservas</button>
+                <button class="btn-cancel-modal" (click)="showSuccessModal = false">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

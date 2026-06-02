@@ -1,0 +1,31 @@
+<div class="container">
+    <h2>Iniciar sesión</h2>
+
+    <form class="form" [formGroup]="form" (ngSubmit)="onLogin()">
+
+        <input type="email" formControlName="email" placeholder="Email" />
+        @if (form.get('email')?.invalid && submitted) {
+            @if (form.get('email')?.errors?.['required']) {
+                <div class="error">Campo obligatorio</div>
+            }
+            @if (form.get('email')?.errors?.['email']) {
+                <div class="error">El email no es válido</div>
+            }
+        }
+
+        <input type="password" formControlName="password" placeholder="Contraseña" />
+        @if (form.get('password')?.invalid && submitted) {
+            @if (form.get('password')?.errors?.['required']) {
+                <div class="error">Campo obligatorio</div>
+            }
+            @if (form.get('password')?.errors?.['minlength']) {
+                <div class="error">La contraseña debe tener al menos 4 caracteres</div>
+            }
+        }
+
+        <p class="error" *ngIf="error">{{ error }}</p>
+        <button type="submit">Entrar</button>
+        <p class="link" (click)="goToRegister()">¿No tienes cuenta? Regístrate</p>
+
+    </form>
+</div>

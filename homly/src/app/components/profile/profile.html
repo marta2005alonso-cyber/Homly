@@ -1,0 +1,84 @@
+<div class="container">
+    <button class="btn-back" (click)="goHome()">← Volver</button>
+
+    <h2>Mi perfil</h2>
+
+    <div *ngIf="!editing">
+        <div class="info-grid">
+            <div class="info-item">
+                <label>Nombre</label>
+                <p>{{ user.name }}</p>
+            </div>
+            <div class="info-item">
+                <label>Primer apellido</label>
+                <p>{{ user.firstName }}</p>
+            </div>
+            <div class="info-item">
+                <label>Segundo apellido</label>
+                <p>{{ user.secondName }}</p>
+            </div>
+            <div class="info-item">
+                <label>Email</label>
+                <p>{{ user.email }}</p>
+            </div>
+            <div class="info-item">
+                <label>Teléfono</label>
+                <p>{{ user.phone }}</p>
+            </div>
+            <div class="info-item">
+                <label>Ciudad</label>
+                <p>{{ user.city }}</p>
+            </div>
+        </div>
+        <button class="btn-edit" (click)="edit()">Editar perfil</button>
+    </div>
+
+    <div *ngIf="editing">
+        <div class="form">
+            <input type="text" placeholder="Nombre" [(ngModel)]="user.name" />
+            <input type="text" placeholder="Primer apellido" [(ngModel)]="user.firstName" />
+            <input type="text" placeholder="Segundo apellido" [(ngModel)]="user.secondName" />
+            <input type="email" placeholder="Email" [(ngModel)]="user.email" />
+            <input type="text" placeholder="Teléfono" [(ngModel)]="user.phone" />
+            <input type="text" placeholder="Ciudad" [(ngModel)]="user.city" />
+            <p class="error" *ngIf="error">{{ error }}</p>
+            <button class="btn-save" (click)="save()">Guardar cambios</button>
+        </div>
+    </div>
+
+    <button class="btn-logout" (click)="logout()">Cerrar sesión</button>
+    <button class="btn-delete-account" (click)="deleteAccount()">Eliminar cuenta</button>
+
+    <div class="modal-overlay" *ngIf="showLogout">
+        <div class="modal">
+            <h3>Cerrar sesión</h3>
+            <p>¿Estás seguro de que quieres cerrar sesión?</p>
+            <div class="modal-actions">
+                <button class="btn-confirm" (click)="confirmLogout()">Sí, cerrar sesión</button>
+                <button class="btn-cancel-modal" (click)="showLogout = false">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" *ngIf="showDelete">
+        <div class="modal">
+            <h3>Eliminar cuenta</h3>
+            <p>¿Estás seguro de que deseas eliminar tu cuenta? Perdera los datos de esta cuenta.</p>
+            <div class="modal-actions">
+                <button class="btn-confirm" style="background: #c0392b;" (click)="confirmDelete()">Sí, eliminar cuenta</button>
+                <button class="btn-cancel-modal" (click)="showDelete = false">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" *ngIf="showErrorModal">
+        <div class="modal">
+            <h3>No puedes eliminar tu cuenta</h3>
+            <p>Debes cancelar todas tus reservas confirmadas antes de eliminar tu cuenta.</p>
+            <div class="modal-actions">
+                <button class="btn-cancel-modal" (click)="showErrorModal = false">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+</div>

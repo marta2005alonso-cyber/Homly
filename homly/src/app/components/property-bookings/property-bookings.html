@@ -1,0 +1,36 @@
+<div class="page-wrapper">
+    <button class="btn-back" (click)="goBack()">← Volver</button>
+
+    <div class="container">
+        <h2>Reservas de {{ propertyName }}</h2>
+
+        <p *ngIf="bookings.length === 0">No hay reservas confirmadas</p>
+
+        <div class="booking-card" *ngFor="let booking of bookings">
+            <div class="booking-info">
+                <h3>{{ booking.user.name }} {{ booking.user.firstName }}</h3>
+                <div class="booking-dates">
+                    <span>📅 {{ booking.checkIn }} → {{ booking.checkOut }}</span>
+                    <span>👥 {{ booking.numberOfGuests }} personas</span>
+                </div>
+                <p class="booking-price">Total: <strong>{{ booking.totalPrice }}€</strong></p>
+                <span class="booking-status status-confirmed">CONFIRMADA</span>
+            </div>
+            <div class="booking-actions">
+                <button class="btn-cancel" (click)="cancelBooking(booking.id)"
+                    [disabled]="isExpired(booking.checkOut)">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" *ngIf="showCancelModal">
+        <div class="modal">
+            <h3>Cancelar reserva</h3>
+            <p>¿Estás seguro de que quieres cancelar esta reserva?</p>
+            <div class="modal-actions">
+                <button class="btn-confirm" (click)="confirmCancelBooking()">Sí, cancelar</button>
+                <button class="btn-cancel-modal" (click)="showCancelModal = false">Volver</button>
+            </div>
+        </div>
+    </div>
+</div>

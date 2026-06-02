@@ -1,0 +1,88 @@
+<div class="page-wrapper">
+
+
+    <div class="admin-header">
+        <h1>HOMLY Admin</h1>
+        <button class="btn-logout" (click)="confirmLogout()">Cerrar sesión</button>
+    </div>
+
+    <div class="container">
+        <h2>Panel de administración</h2>
+
+        <div class="tabs">
+            <button [class.active]="activeTab === 'users'" (click)="setTab('users')">👤 Usuarios</button>
+            <button [class.active]="activeTab === 'properties'" (click)="setTab('properties')">🏠 Propiedades</button>
+            <button [class.active]="activeTab === 'bookings'" (click)="setTab('bookings')">📅 Reservas</button>
+            <button [class.active]="activeTab === 'reviews'" (click)="setTab('reviews')">⭐ Reseñas</button>
+        </div>
+
+        <!-- USUARIOS -->
+        <div *ngIf="activeTab === 'users'">
+            <div class="admin-card" *ngFor="let user of users">
+                <div class="admin-info">
+                    <p class="admin-name">{{ user.name }} {{ user.firstName }} {{ user.secondName }}</p>
+                    <p class="admin-sub">{{ user.email }} · {{ user.city }}</p>
+                    <p class="admin-sub">{{ user.role }}</p>
+                </div>
+                <button class="btn-delete" (click)="confirmDelete('user', user.id)">🗑 Eliminar</button>
+            </div>
+        </div>
+
+        <!-- PROPIEDADES -->
+        <div *ngIf="activeTab === 'properties'">
+            <div class="admin-card" *ngFor="let property of properties">
+                <div class="admin-info">
+                    <p class="admin-name" (click)="goToProperty(property.id)" style="cursor: pointer; text-decoration: underline;">{{ property.name }}</p>
+                    <p class="admin-sub">{{ property.city }}, {{ property.country }} · {{ property.pricePerNight }}€/noche</p>
+                    <p class="admin-sub">Propietario: {{ property.owner.name }} {{ property.owner.firstName }}</p>
+                </div>
+                <button class="btn-delete" (click)="confirmDelete('property', property.id)">🗑 Eliminar</button>
+            </div>
+        </div>
+
+        <!-- RESERVAS -->
+        <div *ngIf="activeTab === 'bookings'">
+            <div class="admin-card" *ngFor="let booking of bookings">
+                <div class="admin-info">
+                    <p class="admin-name">{{ booking.user.name }} → {{ booking.property.name }}</p>
+                    <p class="admin-sub">📅 {{ booking.checkIn }} → {{ booking.checkOut }}</p>
+                    <p class="admin-sub">{{ booking.status }} · {{ booking.totalPrice }}€</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- RESEÑAS -->
+        <div *ngIf="activeTab === 'reviews'">
+            <div class="admin-card" *ngFor="let review of reviews">
+                <div class="admin-info">
+                    <p class="admin-name">⭐ {{ review.rating }}/5 · {{ review.booking.property.name }}</p>
+                    <p class="admin-sub">{{ review.comment }}</p>
+                    <p class="admin-sub">{{ review.booking.user.name }} · {{ review.date }}</p>
+                </div>
+                <button class="btn-delete" (click)="confirmDelete('review', review.id)">🗑 Eliminar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" *ngIf="showDeleteModal">
+        <div class="modal">
+            <h3>Eliminar</h3>
+            <p>¿Estás seguro de que quieres eliminar este elemento?</p>
+            <div class="modal-actions">
+                <button class="btn-confirm" (click)="executeDelete()">Sí, eliminar</button>
+                <button class="btn-cancel-modal" (click)="showDeleteModal = false">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" *ngIf="showLogoutModal">
+        <div class="modal">
+            <h3>Cerrar sesión</h3>
+            <p>¿Estás seguro de que quieres cerrar sesión?</p>
+            <div class="modal-actions">
+                <button class="btn-confirm" (click)="logout()">Sí, cerrar sesión</button>
+                <button class="btn-cancel-modal" (click)="showLogoutModal = false">Cancelar</button>
+            </div>
+        </div>
+</div>
+</div>

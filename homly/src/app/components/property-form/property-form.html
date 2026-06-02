@@ -1,0 +1,87 @@
+<div class="page-wrapper">
+    <button class="btn-back" (click)="goBack()">← Volver</button>
+
+    <div class="container">
+        <h2>{{ id == -1 ? 'Publicar alojamiento' : 'Editar alojamiento' }}</h2>
+
+        <form class="form" #propertyForm="ngForm">
+            <div class="form-field">
+                <label>Nombre</label>
+                <input type="text" placeholder="Nombre del alojamiento" [(ngModel)]="property.name"
+                    name="name" #name="ngModel" required minlength="3" />
+                <span class="error-message" *ngIf="submitted && name.invalid">Mínimo 3 caracteres</span>
+            </div>
+            <div class="form-field">
+                <label>Descripción</label>
+                <textarea placeholder="Describe tu alojamiento" [(ngModel)]="property.description"
+                    name="description" #description="ngModel" required minlength="10"></textarea>
+                <span class="error-message" *ngIf="submitted && description.invalid">Mínimo 10 caracteres</span>
+            </div>
+            <div class="form-field">
+                <label>Dirección</label>
+                <input type="text" placeholder="Dirección" [(ngModel)]="property.address"
+                    name="address" #address="ngModel" required minlength="3" />
+                <span class="error-message" *ngIf="submitted && address.invalid">Mínimo 3 caracteres</span>
+            </div>
+            <div class="form-field">
+                <label>Ciudad</label>
+                <input type="text" placeholder="Ciudad" [(ngModel)]="property.city"
+                    name="city" #city="ngModel" required minlength="3" />
+                <span class="error-message" *ngIf="submitted && city.invalid">Mínimo 3 caracteres</span>
+            </div>
+            <div class="form-field">
+                <label>País</label>
+                <input type="text" placeholder="País" [(ngModel)]="property.country"
+                    name="country" #country="ngModel" required minlength="3" />
+                <span class="error-message" *ngIf="submitted && country.invalid">Mínimo 3 caracteres</span>
+            </div>
+            <div class="form-field">
+                <label>Máx. personas</label>
+                <input type="number" [(ngModel)]="property.maxGuests" min="1"
+                    name="maxGuests" #maxGuests="ngModel" required />
+                <span class="error-message" *ngIf="submitted && maxGuests.invalid">Mínimo 1 persona</span>
+            </div>
+            <div class="form-field">
+                <label>Precio por noche (€)</label>
+                <input type="number" [(ngModel)]="property.pricePerNight" min="1"
+                    name="pricePerNight" #pricePerNight="ngModel" required />
+                <span class="error-message" *ngIf="submitted && pricePerNight.invalid">El precio debe ser mayor a 0</span>
+            </div>
+            <div class="form-field">
+                <label>Hora de entrada</label>
+                <input type="time" [(ngModel)]="property.entryTime"
+                    name="entryTime" #entryTime="ngModel" required />
+                <span class="error-message" *ngIf="submitted && entryTime.invalid">Campo obligatorio</span>
+            </div>
+            <div class="form-field">
+                <label>Hora de salida</label>
+                <input type="time" [(ngModel)]="property.departureTime"
+                    name="departureTime" #departureTime="ngModel" required />
+                <span class="error-message" *ngIf="submitted && departureTime.invalid">Campo obligatorio</span>
+            </div>
+            <div class="form-field">
+                <label>Tipo</label>
+                <select [(ngModel)]="property.type" name="type">
+                    <option value="RENT">Alquiler</option>
+                    <option value="EXCHANGE">Intercambio</option>
+                    <option value="BOTH">Ambos</option>
+                </select>
+            </div>
+
+            <button class="btn-save" (click)="save(propertyForm)">
+                {{ id == -1 ? 'Publicar' : 'Guardar cambios' }}
+            </button>
+        </form>
+    </div>
+
+    <div class="modal-overlay" *ngIf="showSaveModal">
+        <div class="modal">
+            <h3>{{ id == -1 ? 'Publicar alojamiento' : 'Guardar cambios' }}</h3>
+            <p>{{ id == -1 ? '¿Estás segura de que quieres publicar este alojamiento?' : '¿Estás segura de que quieres guardar los cambios?' }}</p>
+            <div class="modal-actions">
+                <button class="btn-confirm" (click)="confirmSave()">{{ id == -1 ? 'Sí, publicar' : 'Sí, guardar' }}</button>
+                <button class="btn-cancel-modal" (click)="goBack()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>

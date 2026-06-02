@@ -1,0 +1,142 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Georgia, serif;
+    color: #3a2e2e;
+}
+
+body {
+    background: #faf7f2;
+}
+
+.container {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 0 40px 40px;
+}
+
+.btn-back {
+    background: none;
+    border: 1px solid #3a2e2e;
+    border-radius: 20px;
+    padding: 8px 16px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.btn-back:hover {
+    background: #3a2e2e;
+    color: white;
+}
+
+h2 {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+}
+
+.property-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.property-name {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.property-location {
+    color: #888;
+    font-size: 0.9rem;
+}
+
+.property-price {
+    color: #e07b54;
+    font-weight: bold;
+    margin-top: 6px;
+}
+
+.btn-delete {
+    background: #c0392b;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 16px;
+    color: white;
+    cursor: pointer;
+}
+
+.btn-delete:hover {
+    background: #a93226;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-box {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.modal-box p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.btn-confirm {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.btn-confirm:hover {
+    background: #c0392b;
+}
+
+.btn-cancel {
+    background: #f0f0f0;
+    color: #333;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.btn-cancel:hover {
+    background: #ddd;
+}

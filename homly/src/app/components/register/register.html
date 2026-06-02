@@ -1,0 +1,81 @@
+<div class="container">
+    <h2>Crear cuenta</h2>
+
+    <form class="form" [formGroup]="form" (ngSubmit)="onRegister()">
+
+        <input type="text" formControlName="name" maxlength="15" placeholder="Nombre" />
+        @if (form.get('name')?.invalid && submitted) {
+            @if (form.get('name')?.errors?.['required']) {
+                <div class="error">Campo obligatorio</div>
+            }
+            @if (form.get('name')?.errors?.['minlength']) {
+                <div class="error">Nombre invalido</div>
+            }
+        }
+
+        <input type="text" formControlName="firstName" maxlength="15" placeholder="Primer apellido" />
+        @if (form.get('firstName')?.invalid && submitted) {
+            @if (form.get('firstName')?.errors?.['required']) {
+                <div class="error">Campo obligatorio</div>
+            }
+            @if (form.get('firstName')?.errors?.['minlength']) {
+                <div class="error">Apellido invalido</div>
+            }
+        }
+
+        <input type="text" formControlName="secondName" maxlength="15" placeholder="Segundo apellido" />
+        @if (form.get('secondName')?.invalid && submitted) {
+            @if (form.get('secondName')?.errors?.['required']) {
+                <div class="error">Campo obligatorio</div>
+            }
+            @if (form.get('secondName')?.errors?.['minlength']) {
+                <div class="error">Apellido invalido</div>
+            }
+        }
+
+        <input type="email" formControlName="email" maxlength="25" placeholder="Email" />
+        @if (form.get('email')?.invalid && submitted) {
+            @if (form.get('email')?.errors?.['required']) {
+                <div class="error">Campo obligatorio</div>
+            }
+            @if (form.get('email')?.errors?.['email']) {
+                <div class="error">El email no es válido</div>
+            }
+        }
+
+        <input type="password" formControlName="password" maxlength="20" placeholder="Contraseña" />
+        @if (form.get('password')?.invalid && submitted) {
+            @if (form.get('password')?.errors?.['required']) {
+                <div class="error">Campo obligatorio</div>
+            }
+            @if (form.get('password')?.errors?.['minlength']) {
+                <div class="error">La contraseña debe tener al menos 4 caracteres</div>
+            }
+        }
+
+        <input type="text" formControlName="phone" placeholder="Teléfono" maxlength="9" />
+        @if (form.get('phone')?.invalid && submitted) {
+            @if (form.get('phone')?.errors?.['required']) {
+                <div class="error">El teléfono es obligatorio</div>
+            }
+            @if (form.get('phone')?.errors?.['pattern']) {
+                <div class="error">El teléfono debe tener exactamente 9 dígitos numéricos</div>
+            }
+        }
+
+        <input type="text" formControlName="city" maxlength="15" placeholder="Ciudad" />
+        @if (form.get('city')?.invalid && submitted) {
+            @if (form.get('city')?.errors?.['required']) {
+                <div class="error">Campo obligatorio</div>
+            }
+            @if (form.get('city')?.errors?.['minlength']) {
+                <div class="error">Ciudad invalida</div>
+            }
+        }
+
+        <p class="error" *ngIf="error">{{ error }}</p>
+        <button type="submit">Registrarse</button>
+        <p class="link" (click)="goToLogin()">¿Ya tienes cuenta? Inicia sesión</p>
+
+    </form>
+</div>

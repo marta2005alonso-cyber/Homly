@@ -1,0 +1,47 @@
+<div class="page-wrapper">
+    <button class="btn-back" (click)="goBack()">← Volver</button>
+
+    <div class="container">
+        <h2>Solicitudes de mi alojamiento </h2>   
+        <p *ngIf="requests.length === 0">No hay solicitudes pendientes</p>
+
+        <div class="request-card" *ngFor="let request of requests">
+            <div class="request-info">
+                <h3>{{ request.user.name }} {{ request.user.firstName }}</h3>
+                <p class="request-location">Ofrece: <strong>{{ request.offeredProperty.name }}</strong>, {{
+                    request.offeredProperty.city }}</p>
+                <p class="request-location">Por tu casa: <strong>{{ request.property.name }}</strong></p>
+                <div class="request-dates">
+                    <span>📅 {{ request.checkIn }} → {{ request.checkOut }}</span>
+                    <span>👥 {{ request.numberOfGuests }} personas</span>
+                </div>
+            </div>
+            <div class="request-actions">
+                <button class="btn-accept" (click)="acceptRequest(request.id)">✅ Aceptar</button>
+                <button class="btn-reject" (click)="rejectRequest(request.id)">❌ Rechazar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" *ngIf="showAcceptModal">
+        <div class="modal">
+            <h3>Aceptar solicitud</h3>
+            <p>¿Estás segura de que quieres aceptar esta solicitud?</p>
+            <div class="modal-actions">
+                <button class="btn-confirm" (click)="confirmAcceptRequest()">Sí, aceptar</button>
+                <button class="btn-cancel-modal" (click)="showAcceptModal = false">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" *ngIf="showRejectModal">
+        <div class="modal">
+            <h3>Rechazar solicitud</h3>
+            <p>¿Estás segura de que quieres rechazar esta solicitud?</p>
+            <div class="modal-actions">
+                <button class="btn-confirm" (click)="confirmRejectRequest()">Sí, rechazar</button>
+                <button class="btn-cancel-modal" (click)="showRejectModal = false">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,109 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Georgia, serif;
+    color: #3a2e2e;
+}
+
+body {
+    background: #faf7f2;
+}
+
+h2 {
+    font-size: 1.8rem;
+    padding: 30px 40px 20px;
+    color: #3a2e2e;
+}
+
+.no-results {
+    text-align: center;
+    color: #888;
+    font-style: italic;
+    padding: 40px;
+}
+
+.property-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    margin: 0 40px 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s;
+}
+
+.property-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+}
+
+.property-name {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.property-location {
+    color: #888;
+    font-size: 0.9rem;
+}
+
+.property-price {
+    color: #e07b54;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.property-guests {
+    color: #888;
+    font-size: 0.85rem;
+    margin-top: 4px;
+}
+
+.btn-favorite {
+    background: none;
+    border: 1px solid #e07b54;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.btn-favorite:hover {
+    background: #e07b54;
+}
+
+.property-type {
+    font-size: 0.85rem;
+    color: #e07b54;
+    margin-top: 4px;
+}
+
+.btn-back {
+    background: none;
+    border: 1px solid #e0d8d0;
+    border-radius: 50px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 24px 0;
+    display: inline-block;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.btn-back:hover {
+    background: #2c2420;
+    color: white;
+    border-color: #2c2420;
+}
+
+.page-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 40px;
+}

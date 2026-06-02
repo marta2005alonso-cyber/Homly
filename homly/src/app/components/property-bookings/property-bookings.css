@@ -1,0 +1,204 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700&family=DM+Sans:wght@300;400;500&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'DM Sans', sans-serif;
+    color: #2c2420;
+}
+
+body { background: #faf8f5; }
+
+.page-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.btn-back {
+    background: none;
+    border: 1px solid #e0d8d0;
+    border-radius: 50px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 24px 0;
+    display: inline-block;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.btn-back:hover {
+    background: #2c2420;
+    color: white;
+    border-color: #2c2420;
+}
+
+.container { padding: 0 0 48px; }
+
+h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    margin-bottom: 28px;
+}
+
+.booking-card {
+    background: white;
+    border-radius: 20px;
+    padding: 24px 28px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.booking-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+
+.booking-dates {
+    display: flex;
+    gap: 16px;
+    font-size: 0.88rem;
+    margin-bottom: 10px;
+    color: #5a4a44;
+}
+
+.booking-price {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.booking-price strong {
+    color: #e07b54;
+    font-size: 1.1rem;
+}
+
+.booking-status {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.78rem;
+    font-weight: 500;
+}
+
+.status-confirmed {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.btn-cancel {
+    background: none;
+    border: 1px solid #c0392b;
+    border-radius: 50px;
+    padding: 10px 20px;
+    color: #c0392b;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.btn-cancel:hover {
+    background: #c0392b;
+    color: white;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: grayscale(100%);
+}
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.modal {
+    background: white;
+    border-radius: 20px;
+    padding: 36px;
+    width: 380px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.modal h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+}
+
+.modal p {
+    color: #5a4a44;
+    font-size: 0.95rem;
+    margin-bottom: 24px;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.btn-confirm {
+    background: #2c2420;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 24px;
+    color: white;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.btn-confirm:hover {
+    background: #4a3830;
+}
+
+.btn-cancel-modal {
+    background: none;
+    border: 1px solid #e0d8d0;
+    border-radius: 50px;
+    padding: 12px 24px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.btn-cancel-modal:hover {
+    background: #f0ebe4;
+}
+
+.status-cancelled {
+    background: #ffebee;
+    color: #c0392b;
+}
+
+.btn-delete {
+    background: none;
+    border: 1px solid #c0392b;
+    border-radius: 50px;
+    padding: 10px 20px;
+    color: #c0392b;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.btn-delete:hover {
+    background: #c0392b;
+    color: white;
+}
+
+.booking-actions {
+    display: flex;
+    gap: 12px;
+}
