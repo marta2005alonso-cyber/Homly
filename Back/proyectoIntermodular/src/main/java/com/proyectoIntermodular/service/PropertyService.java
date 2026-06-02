@@ -10,6 +10,7 @@ package com.proyectoIntermodular.service;
  */
 import com.proyectoIntermodular.model.Property;
 import com.proyectoIntermodular.repository.PropertyRepository;
+import com.proyectoIntermodular.repository.PropertyImageRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -17,9 +18,11 @@ import java.util.List;
 public class PropertyService {
 
     private final PropertyRepository repository;
+    private final PropertyImageRepository imageRepository;
 
-    public PropertyService(PropertyRepository repository) {
+    public PropertyService(PropertyRepository repository, PropertyImageRepository imageRepository) {
         this.repository = repository;
+        this.imageRepository = imageRepository;
     }
 
     public List<Property> getAll() {
@@ -50,6 +53,7 @@ public class PropertyService {
     }
 
     public void delete(Long id) {
+        imageRepository.deleteByPropertyId(id);
         repository.deleteById(id);
     }
 }
