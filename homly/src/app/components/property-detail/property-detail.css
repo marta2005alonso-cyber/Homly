@@ -405,3 +405,36 @@ h3 {
 .btn-cancel-modal:hover {
     background: #f0ebe4;
 }
+
+.carousel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.carousel-img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 16px;
+}
+
+.carousel-btn {
+    background: white;
+    border: 1px solid #e0d8d0;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.carousel-btn:hover {
+    background: #2c2420;
+    color: white;
+    border-color: #2c2420;
+}

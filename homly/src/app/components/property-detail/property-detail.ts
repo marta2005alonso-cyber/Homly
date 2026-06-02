@@ -8,6 +8,7 @@ import { AuthService } from '../../services/auth-service';
 import { BookingService } from '../../services/booking-service';
 import { FormsModule } from '@angular/forms';
 import { FavoriteService } from '../../services/favorite-service';
+import { ImageService } from '../../services/image-service';
 
 @Component({
   selector: 'app-property-detail',
@@ -31,6 +32,8 @@ export class PropertyDetail {
   public isFavorite: boolean = false;
   public favoriteId: number = 0;
   public showSuccessModal: boolean = false;
+  public images: any[] = [];
+  public currentImage: number = 0;
 
   constructor(
     private propertyService: PropertyService,
@@ -41,8 +44,8 @@ export class PropertyDetail {
     private authService: AuthService,
     private bookingService: BookingService,
     private cdr: ChangeDetectorRef,
-    private favoriteService: FavoriteService
-
+    private favoriteService: FavoriteService,
+    private imageService: ImageService
   ) { }
 
   ngOnInit() {
@@ -79,6 +82,14 @@ export class PropertyDetail {
       error: error => console.error('Error: ', error)
     });
 
+    this.imageService.getByPropertyId(id).subscribe({
+      next: datos => {
+        this.images = datos;
+        this.cdr.detectChanges();
+      },
+      error: error => console.error('Error: ', error)
+    });
+
     this.loadUserProperties();
 
     this.bookingService.getBookings().subscribe({
@@ -92,13 +103,19 @@ export class PropertyDetail {
 
     this.reviewService.getReviews().subscribe({
       next: datos => {
-        console.log('reviews:', datos);
         this.reviews = datos.filter((r: any) => r.booking.property.id == id);
-        console.log('reviews filtradas:', this.reviews);
         this.cdr.detectChanges();
       },
       error: error => console.error('Error: ', error)
     });
+  }
+
+  prevImage() {
+    this.currentImage = this.currentImage === 0 ? this.images.length - 1 : this.currentImage - 1;
+  }
+
+  nextImage() {
+    this.currentImage = this.currentImage === this.images.length - 1 ? 0 : this.currentImage + 1;
   }
 
   goBack() {
@@ -127,17 +144,14 @@ export class PropertyDetail {
     }
 
     if (this.guests < 1) {
-        this.dateError = 'Debe indicar al menos 1 persona';
-        return;
+      this.dateError = 'Debe indicar al menos 1 persona';
+      return;
     }
 
     if (this.guests > this.property.maxGuests) {
       this.dateError = 'El número de personas supera el máximo permitido';
       return;
     }
-
-
-
 
     const start = new Date(this.checkIn);
     const end = new Date(this.checkOut);

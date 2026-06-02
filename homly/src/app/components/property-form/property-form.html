@@ -68,6 +68,22 @@
                 </select>
             </div>
 
+            <div class="form-field">
+                <label>Imágenes (mín. 1, máx. 7)</label>
+                <input type="file" accept="image/*" multiple (change)="onFilesSelected($event)" />
+                <span class="error-message" *ngIf="submitted && id == -1 && selectedFiles.length === 0">Debes añadir al menos 1 imagen</span>
+            </div>
+
+            <div class="images-preview" *ngIf="images.length > 0 || selectedFiles.length > 0">
+                <div class="image-item" *ngFor="let img of images">
+                    <img [src]="img.url" alt="imagen" />
+                    <button type="button" class="btn-delete-img" (click)="deleteImage(img.id)">🗑</button>
+                </div>
+                <div class="image-item" *ngFor="let file of selectedFiles">
+                    <span>{{ file.name }}</span>
+                </div>
+            </div>
+
             <button class="btn-save" (click)="save(propertyForm)">
                 {{ id == -1 ? 'Publicar' : 'Guardar cambios' }}
             </button>

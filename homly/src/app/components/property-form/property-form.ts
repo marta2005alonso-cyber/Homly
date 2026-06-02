@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PropertyService } from '../../services/property-service';
 import { AuthService } from '../../services/auth-service';
+import { ImageService } from '../../services/image-service';
 
 @Component({
   selector: 'app-property-form',
@@ -29,10 +30,14 @@ export class PropertyForm {
   public id: number = -1;
   public showSaveModal: boolean = false;
   public submitted: boolean = false;
+  public images: any[] = [];
+  public selectedFiles: File[] = [];
+  public propertyId: number = -1;
 
   constructor(
     private propertyService: PropertyService,
     private authService: AuthService,
+    private imageService: ImageService,
     private router: Router,
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef
@@ -42,6 +47,7 @@ export class PropertyForm {
     this.id = this.route.snapshot.params['id'];
 
     if (this.id != -1) {
+      this.propertyId = this.id;
       this.propertyService.getPropertyById(this.id).subscribe({
         next: datos => {
           this.property = datos;
@@ -49,12 +55,46 @@ export class PropertyForm {
         },
         error: error => console.error('Error: ', error)
       });
+
+      this.imageService.getByPropertyId(this.id).subscribe({
+        next: datos => {
+          this.images = datos;
+          this.cdr.detectChanges();
+        },
+        error: error => console.error('Error: ', error)
+      });
     }
+  }
+
+  onFilesSelected(event: any) {
+    const files: FileList = event.target.files;
+    const total = this.images.length + this.selectedFiles.length + files.length;
+    if (total > 7) {
+      alert('Máximo 7 imágenes por alojamiento');
+      return;
+    }
+    for (let i = 0; i < files.length; i++) {
+      this.selectedFiles.push(files[i]);
+    }
+  }
+
+  deleteImage(id: number) {
+    this.imageService.deleteImage(id).subscribe({
+      next: () => {
+        this.images = this.images.filter(img => img.id !== id);
+        this.cdr.detectChanges();
+      },
+      error: error => console.error('Error: ', error)
+    });
   }
 
   save(form: any) {
     this.submitted = true;
     if (form.invalid) return;
+    if (this.id == -1 && this.selectedFiles.length === 0) {
+      alert('Debes añadir al menos 1 imagen');
+      return;
+    }
     this.showSaveModal = true;
   }
 
@@ -64,15 +104,38 @@ export class PropertyForm {
 
     if (this.id == -1) {
       this.propertyService.addProperty(this.property).subscribe({
-        next: () => {
-          this.router.navigate(['/my-properties']);
+        next: (newProperty: any) => {
+          this.uploadImages(newProperty.id, () => {
+            this.router.navigate(['/my-properties']);
+          });
         },
         error: error => console.error('Error: ', error)
       });
     } else {
       this.propertyService.updateProperty(this.id, this.property).subscribe({
         next: () => {
-          this.router.navigate(['/my-properties']);
+          this.uploadImages(this.id, () => {
+            this.router.navigate(['/my-properties']);
+          });
+        },
+        error: error => console.error('Error: ', error)
+      });
+    }
+  }
+
+  uploadImages(propertyId: number, callback: () => void) {
+    if (this.selectedFiles.length === 0) {
+      callback();
+      return;
+    }
+    let uploaded = 0;
+    for (const file of this.selectedFiles) {
+      this.imageService.uploadImage(propertyId, file).subscribe({
+        next: () => {
+          uploaded++;
+          if (uploaded === this.selectedFiles.length) {
+            callback();
+          }
         },
         error: error => console.error('Error: ', error)
       });

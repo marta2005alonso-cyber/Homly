@@ -7,6 +7,12 @@
         <p class="location">{{ property.address }}, {{ property.city }} {{ property.country }}</p>
         <p class="description">{{ property.description }}</p>
 
+        <div class="carousel" *ngIf="images.length > 0">
+            <button class="carousel-btn" (click)="prevImage()">‹</button>
+            <img [src]="images[currentImage].url" alt="imagen" class="carousel-img" />
+            <button class="carousel-btn" (click)="nextImage()">›</button>
+        </div>
+
         <div class="info-grid">
             <div class="info-item">
                 <label>Precio</label>
