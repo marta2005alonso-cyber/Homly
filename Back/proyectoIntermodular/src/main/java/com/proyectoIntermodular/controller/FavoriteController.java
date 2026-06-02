@@ -14,7 +14,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/favorites")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200", "https://homly-1mrvhmmgl-marta2005alonso-cybers-projects.vercel.app"})
 public class FavoriteController {
     private final FavoriteService service;
 

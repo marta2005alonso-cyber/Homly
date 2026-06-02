@@ -15,7 +15,7 @@ import org.springframework.http.ResponseEntity;
  */
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200", "https://homly-1mrvhmmgl-marta2005alonso-cybers-projects.vercel.app"})
 public class AuthController {
     
     private final UserRepository userRepository;
