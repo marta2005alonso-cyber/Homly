@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth-service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,9 @@ export class Login {
     private authService: AuthService,
     private router: Router,
     private fb: FormBuilder,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private location: Location
+
 
   ) {
     this.form = this.fb.group({
@@ -53,5 +56,9 @@ export class Login {
 
   goToRegister() {
     this.router.navigate(['/register']);
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

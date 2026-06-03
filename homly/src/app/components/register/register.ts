@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth-service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +19,9 @@ export class Register {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private location: Location
+
   ) {
     this.form = this.fb.group({
       name: this.fb.control('', [Validators.required, Validators.minLength(4)]),
@@ -56,6 +59,10 @@ public submitted: boolean = false;
 
   goToLogin() {
     this.router.navigate(['/login']);
+  }
+
+  goBack() {
+    this.location.back();
   }
 
 }
