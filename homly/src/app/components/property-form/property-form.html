@@ -95,7 +95,9 @@
             <h3>{{ id == -1 ? 'Publicar alojamiento' : 'Guardar cambios' }}</h3>
             <p>{{ id == -1 ? '¿Estás segura de que quieres publicar este alojamiento?' : '¿Estás segura de que quieres guardar los cambios?' }}</p>
             <div class="modal-actions">
-                <button class="btn-confirm" (click)="confirmSave()">{{ id == -1 ? 'Sí, publicar' : 'Sí, guardar' }}</button>
+                <button class="btn-confirm" (click)="confirmSave()" [disabled]="saving">
+                    {{ saving ? 'Guardando...' : (id == -1 ? 'Sí, publicar' : 'Sí, guardar') }}
+                </button>
                 <button class="btn-cancel-modal" (click)="goBack()">Cancelar</button>
             </div>
         </div>

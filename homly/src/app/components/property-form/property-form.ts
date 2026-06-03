@@ -36,6 +36,7 @@ export class PropertyForm {
   public showDeleteImageModal: boolean = false;
   public pendingImageId: number = 0;
   public imageError: string = '';
+  public saving: boolean = false;
 
 
   constructor(
@@ -114,6 +115,7 @@ export class PropertyForm {
   }
 
   confirmSave() {
+    this.saving = true;
     const user = this.authService.getUser();
     this.property.owner = { id: user.id };
 
@@ -121,19 +123,27 @@ export class PropertyForm {
       this.propertyService.addProperty(this.property).subscribe({
         next: (newProperty: any) => {
           this.uploadImages(newProperty.id, () => {
+            this.saving = false;
             this.router.navigate(['/my-properties']);
           });
         },
-        error: error => console.error('Error: ', error)
+        error: error => {
+          this.saving=false;
+          console.error('Error: ', error);
+        }
       });
     } else {
       this.propertyService.updateProperty(this.id, this.property).subscribe({
         next: () => {
           this.uploadImages(this.id, () => {
+            this.saving = false;
             this.router.navigate(['/my-properties']);
           });
         },
-        error: error => console.error('Error: ', error)
+        error: error =>{
+          this.saving = false;
+          console.error('Error: ', error);
+        }
       });
     }
   }
