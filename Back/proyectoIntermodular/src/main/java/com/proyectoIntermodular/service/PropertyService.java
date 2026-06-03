@@ -16,6 +16,7 @@ import com.proyectoIntermodular.repository.PropertyImageRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
+import com.proyectoIntermodular.repository.ReviewRepository;
 
 @Service
 public class PropertyService {
@@ -23,11 +24,13 @@ public class PropertyService {
     private final PropertyRepository repository;
     private final PropertyImageRepository imageRepository;
     private final BookingRepository bookingRepository;
+    private final ReviewRepository reviewRepository;
 
-    public PropertyService(PropertyRepository repository, PropertyImageRepository imageRepository, BookingRepository bookingRepository) {
+    public PropertyService(PropertyRepository repository, PropertyImageRepository imageRepository, BookingRepository bookingRepository, ReviewRepository reviewRepository) {
         this.repository = repository;
         this.imageRepository = imageRepository;
         this.bookingRepository = bookingRepository;
+        this.reviewRepository = reviewRepository;
     }
 
     public List<Property> getAll() {
@@ -61,9 +64,14 @@ public class PropertyService {
     public void delete(Long id) {
         List<Booking> bookings = bookingRepository.findByPropertyId(id);
         boolean hasActiveBookings = bookings.stream()
-            .anyMatch(b -> "CONFIRMED".equals(b.getStatus()) || "PENDING".equals(b.getStatus()));
+            .anyMatch(b -> ("CONFIRMED".equals(b.getStatus()) || "PENDING".equals(b.getStatus()))
+                && b.getCheckOut().isAfter(java.time.LocalDate.now()));
         if (hasActiveBookings) {
             throw new RuntimeException("Este alojamiento tiene reservas asociadas");
+        }
+        for (Booking booking : bookings) {
+            reviewRepository.deleteByBookingId(booking.getId());
+            bookingRepository.deleteById(booking.getId());
         }
         imageRepository.deleteByPropertyId(id);
         repository.deleteById(id);
