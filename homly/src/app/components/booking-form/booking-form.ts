@@ -30,6 +30,8 @@ export class BookingForm {
     private location: Location
   ) {
     this.form = this.fb.group({
+      checkIn: this.fb.control('', [Validators.required]),
+      checkOut: this.fb.control('', [Validators.required]),
       numberOfGuests: this.fb.control(1, [Validators.required, Validators.min(1)])
     });
   }
@@ -43,7 +45,12 @@ export class BookingForm {
         this.checkIn = datos.checkIn;
         this.checkOut = datos.checkOut;
         this.isExchange = datos.totalPrice === 0;
-        this.form.patchValue({ numberOfGuests: datos.numberOfGuests });
+
+        this.form.patchValue({
+            checkIn: datos.checkIn,
+            checkOut: datos.checkOut,
+            numberOfGuests: datos.numberOfGuests
+        });
 
         this.form.get('numberOfGuests')?.setValidators([
           Validators.required,
@@ -62,35 +69,51 @@ export class BookingForm {
   }
 
   confirmSave() {
-    const formValue: any = {
-      checkIn: this.checkIn,
-      checkOut: this.checkOut,
-      numberOfGuests: this.form.value.numberOfGuests,
-      totalPrice: this.totalPrice
-    };
+      const formValue: any = {
+          checkIn: this.isExchange ? this.checkIn : this.form.value.checkIn,
+          checkOut: this.isExchange ? this.checkOut : this.form.value.checkOut,
+          numberOfGuests: this.form.value.numberOfGuests,
+          totalPrice: this.totalPrice
+      };
 
-    this.bookingService.updateBooking(this.id, formValue).subscribe({
-      next: () => {
-        this.router.navigate(['/bookings']);
-      },
-      error: error => console.error('Error: ', error)
-    });
+      this.bookingService.updateBooking(this.id, formValue).subscribe({
+          next: () => {
+              this.router.navigate(['/bookings']);
+          },
+          error: error => console.error('Error: ', error)
+      });
   }
 
   goBack() {
     this.location.back();
   }
 
-calculatePrice() {
-    if (this.isExchange) {
-      this.totalPrice = 0;
-      return;
-    }
-    if (this.checkIn && this.checkOut) {
-      const start = new Date(this.checkIn);
-      const end = new Date(this.checkOut);
-      const days = (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24);
-      this.totalPrice = days * this.pricePerNight;
-    }
+  calculatePrice() {
+      if (this.isExchange) {
+          this.totalPrice = 0;
+          return;
+      }
+      const checkIn = this.form.get('checkIn')?.value;
+      const checkOut = this.form.get('checkOut')?.value;
+      if (checkIn && checkOut) {
+          const start = new Date(checkIn);
+          const end = new Date(checkOut);
+          const days = (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24);
+          this.totalPrice = days * this.pricePerNight;
+      }
+  }
+
+  getToday() {
+    return new Date().toISOString().split('T')[0];
+  }
+
+  getMinCheckOut() {
+      const checkIn = this.form.get('checkIn')?.value;
+      if (checkIn) {
+          const date = new Date(checkIn);
+          date.setDate(date.getDate() + 1);
+          return date.toISOString().split('T')[0];
+      }
+      return '';
   }
 }
