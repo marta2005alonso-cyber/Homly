@@ -33,6 +33,9 @@ export class PropertyForm {
   public images: any[] = [];
   public selectedFiles: File[] = [];
   public propertyId: number = -1;
+  public showDeleteImageModal: boolean = false;
+  public pendingImageId: number = 0;
+
 
   constructor(
     private propertyService: PropertyService,
@@ -76,6 +79,16 @@ export class PropertyForm {
     for (let i = 0; i < files.length; i++) {
       this.selectedFiles.push(files[i]);
     }
+  }
+
+  confirmDeleteImage(id: number) {
+      this.pendingImageId = id;
+      this.showDeleteImageModal = true;
+  }
+
+  confirmDeleteImageAction() {
+      this.deleteImage(this.pendingImageId);
+      this.showDeleteImageModal = false;
   }
 
   deleteImage(id: number) {
