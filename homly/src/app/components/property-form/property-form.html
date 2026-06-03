@@ -72,6 +72,7 @@
                 <label>Imágenes (mín. 1, máx. 7)</label>
                 <input type="file" accept="image/*" multiple (change)="onFilesSelected($event)" />
                 <span class="error-message" *ngIf="submitted && id == -1 && selectedFiles.length === 0">Debes añadir al menos 1 imagen</span>
+                <span class="error-message" *ngIf="imageError">{{ imageError }}</span>
             </div>
 
             <div class="images-preview" *ngIf="images.length > 0 || selectedFiles.length > 0">

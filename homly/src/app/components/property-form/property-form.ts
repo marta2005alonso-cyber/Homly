@@ -35,6 +35,7 @@ export class PropertyForm {
   public propertyId: number = -1;
   public showDeleteImageModal: boolean = false;
   public pendingImageId: number = 0;
+  public imageError: string = '';
 
 
   constructor(
@@ -73,7 +74,7 @@ export class PropertyForm {
     const files: FileList = event.target.files;
     const total = this.images.length + this.selectedFiles.length + files.length;
     if (total > 7) {
-      alert('Máximo 7 imágenes por alojamiento');
+      this.imageError = 'Máximo 7 imágenes por alojamiento';
       return;
     }
     for (let i = 0; i < files.length; i++) {
@@ -105,8 +106,13 @@ export class PropertyForm {
     this.submitted = true;
     if (form.invalid) return;
     if (this.id == -1 && this.selectedFiles.length === 0) {
-      alert('Debes añadir al menos 1 imagen');
-      return;
+        this.imageError = 'Debes añadir al menos 1 imagen';
+        return;
+    }
+
+    if (this.id != -1 && this.images.length === 0 && this.selectedFiles.length === 0) {
+        this.imageError = 'Debes tener al menos 1 imagen';
+        return;
     }
     this.showSaveModal = true;
   }
