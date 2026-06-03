@@ -72,11 +72,7 @@ export class PropertyForm {
 
   onFilesSelected(event: any) {
     const files: FileList = event.target.files;
-    const total = this.images.length + this.selectedFiles.length + files.length;
-    if (total > 7) {
-      this.imageError = 'Máximo 7 imágenes por alojamiento';
-      return;
-    }
+
     for (let i = 0; i < files.length; i++) {
       this.selectedFiles.push(files[i]);
     }
