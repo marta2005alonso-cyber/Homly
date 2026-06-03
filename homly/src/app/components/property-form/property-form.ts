@@ -150,20 +150,24 @@ export class PropertyForm {
 
   uploadImages(propertyId: number, callback: () => void) {
     if (this.selectedFiles.length === 0) {
-      callback();
-      return;
+        callback();
+        return;
     }
     let uploaded = 0;
     for (const file of this.selectedFiles) {
-      this.imageService.uploadImage(propertyId, file).subscribe({
-        next: () => {
-          uploaded++;
-          if (uploaded === this.selectedFiles.length) {
-            callback();
-          }
-        },
-        error: error => console.error('Error: ', error)
-      });
+        this.imageService.uploadImage(propertyId, file).subscribe({
+            next: () => {
+                uploaded++;
+                if (uploaded === this.selectedFiles.length) {
+                    callback();
+                }
+            },
+            error: error => {
+                this.saving = false;
+                console.error('Error: ', error);
+                this.router.navigate(['/my-properties']);
+            }
+        });
     }
   }
 
