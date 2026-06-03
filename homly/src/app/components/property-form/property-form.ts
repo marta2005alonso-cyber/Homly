@@ -73,12 +73,16 @@ export class PropertyForm {
 
   onFilesSelected(event: any) {
     const files: FileList = event.target.files;
-
     for (let i = 0; i < files.length; i++) {
-      this.selectedFiles.push(files[i]);
+        if (files[i].size > 10 * 1024 * 1024) {
+            this.imageError = 'Una imagen supera el tamaño máximo de 10MB';
+            return;
+        }
+        this.selectedFiles.push(files[i]);
     }
+    this.imageError = '';
   }
-
+  
   confirmDeleteImage(id: number) {
       this.pendingImageId = id;
       this.showDeleteImageModal = true;
