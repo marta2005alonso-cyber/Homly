@@ -44,6 +44,7 @@ public class BookingService {
         existing.setTotalPrice(booking.getTotalPrice());
         return repository.save(existing);
     }
+    
     public void delete(Long id) {
         reviewRepository.deleteByBookingId(id);
         repository.deleteById(id);
