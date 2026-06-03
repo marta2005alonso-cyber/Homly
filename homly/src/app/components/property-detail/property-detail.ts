@@ -143,6 +143,14 @@ export class PropertyDetail {
       return;
     }
 
+    const start = new Date(this.checkIn);
+    const end = new Date(this.checkOut);
+
+    if (end <= start) {
+      this.dateError = 'La fecha de salida debe ser al menos un día después de la entrada';
+      return;
+    }
+
     if (this.guests < 1) {
       this.dateError = 'Debe indicar al menos 1 persona';
       return;
@@ -150,14 +158,6 @@ export class PropertyDetail {
 
     if (this.guests > this.property.maxGuests) {
       this.dateError = 'El número de personas supera el máximo permitido';
-      return;
-    }
-
-    const start = new Date(this.checkIn);
-    const end = new Date(this.checkOut);
-
-    if (end <= start) {
-      this.dateError = 'La fecha de salida debe ser al menos un día después de la entrada';
       return;
     }
 
