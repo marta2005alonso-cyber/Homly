@@ -25,7 +25,7 @@ public class Review {
     private String comment;
     private LocalDate date;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "booking_id")
     private Booking booking;
 
