@@ -3,82 +3,70 @@
 
     <h2>Mi perfil</h2>
 
-    <div *ngIf="!editing">
-        <div class="info-grid">
-            <div class="info-item">
-                <label>Nombre</label>
-                <p>{{ user.name }}</p>
-            </div>
-            <div class="info-item">
-                <label>Primer apellido</label>
-                <p>{{ user.firstName }}</p>
-            </div>
-            <div class="info-item">
-                <label>Segundo apellido</label>
-                <p>{{ user.secondName }}</p>
-            </div>
-            <div class="info-item">
-                <label>Email</label>
-                <p>{{ user.email }}</p>
-            </div>
-            <div class="info-item">
-                <label>Teléfono</label>
-                <p>{{ user.phone }}</p>
-            </div>
-            <div class="info-item">
-                <label>Ciudad</label>
-                <p>{{ user.city }}</p>
-            </div>
-        </div>
-        <button class="btn-edit" (click)="edit()">Editar perfil</button>
-    </div>
-
     <div *ngIf="editing">
-        <div class="form">
-            <input type="text" placeholder="Nombre" [(ngModel)]="user.name" />
-            <input type="text" placeholder="Primer apellido" [(ngModel)]="user.firstName" />
-            <input type="text" placeholder="Segundo apellido" [(ngModel)]="user.secondName" />
-            <input type="email" placeholder="Email" [(ngModel)]="user.email" />
-            <input type="text" placeholder="Teléfono" [(ngModel)]="user.phone" />
-            <input type="text" placeholder="Ciudad" [(ngModel)]="user.city" />
+        <form class="form" [formGroup]="editForm">
+            <input type="text" formControlName="name" maxlength="15" placeholder="Nombre" />
+            @if (editForm.get('name')?.invalid && submitted) {
+            @if (editForm.get('name')?.errors?.['required']) {
+            <div class="error">Campo obligatorio</div>
+            }
+            @if (editForm.get('name')?.errors?.['minlength']) {
+            <div class="error">Nombre inválido</div>
+            }
+            }
+
+            <input type="text" formControlName="firstName" maxlength="15" placeholder="Primer apellido" />
+            @if (editForm.get('firstName')?.invalid && submitted) {
+            @if (editForm.get('firstName')?.errors?.['required']) {
+            <div class="error">Campo obligatorio</div>
+            }
+            @if (editForm.get('firstName')?.errors?.['minlength']) {
+            <div class="error">Apellido inválido</div>
+            }
+            }
+
+            <input type="text" formControlName="secondName" maxlength="15" placeholder="Segundo apellido" />
+            @if (editForm.get('secondName')?.invalid && submitted) {
+            @if (editForm.get('secondName')?.errors?.['required']) {
+            <div class="error">Campo obligatorio</div>
+            }
+            @if (editForm.get('secondName')?.errors?.['minlength']) {
+            <div class="error">Apellido inválido</div>
+            }
+            }
+
+            <input type="email" formControlName="email" maxlength="25" placeholder="Email" />
+            @if (editForm.get('email')?.invalid && submitted) {
+            @if (editForm.get('email')?.errors?.['required']) {
+            <div class="error">Campo obligatorio</div>
+            }
+            @if (editForm.get('email')?.errors?.['email']) {
+            <div class="error">El email no es válido</div>
+            }
+            }
+
+            <input type="text" formControlName="phone" placeholder="Teléfono" maxlength="9" />
+            @if (editForm.get('phone')?.invalid && submitted) {
+            @if (editForm.get('phone')?.errors?.['required']) {
+            <div class="error">El teléfono es obligatorio</div>
+            }
+            @if (editForm.get('phone')?.errors?.['pattern']) {
+            <div class="error">El teléfono debe tener exactamente 9 dígitos numéricos</div>
+            }
+            }
+
+            <input type="text" formControlName="city" maxlength="15" placeholder="Ciudad" />
+            @if (editForm.get('city')?.invalid && submitted) {
+            @if (editForm.get('city')?.errors?.['required']) {
+            <div class="error">Campo obligatorio</div>
+            }
+            @if (editForm.get('city')?.errors?.['minlength']) {
+            <div class="error">Ciudad inválida</div>
+            }
+            }
+
             <p class="error" *ngIf="error">{{ error }}</p>
             <button class="btn-save" (click)="save()">Guardar cambios</button>
-        </div>
+        </form>
     </div>
-
-    <button class="btn-logout" (click)="logout()">Cerrar sesión</button>
-    <button class="btn-delete-account" (click)="deleteAccount()">Eliminar cuenta</button>
-
-    <div class="modal-overlay" *ngIf="showLogout">
-        <div class="modal">
-            <h3>Cerrar sesión</h3>
-            <p>¿Estás seguro de que quieres cerrar sesión?</p>
-            <div class="modal-actions">
-                <button class="btn-confirm" (click)="confirmLogout()">Sí, cerrar sesión</button>
-                <button class="btn-cancel-modal" (click)="showLogout = false">Cancelar</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal-overlay" *ngIf="showDelete">
-        <div class="modal">
-            <h3>Eliminar cuenta</h3>
-            <p>¿Estás seguro de que deseas eliminar tu cuenta? Perdera los datos de esta cuenta.</p>
-            <div class="modal-actions">
-                <button class="btn-confirm" style="background: #c0392b;" (click)="confirmDelete()">Sí, eliminar cuenta</button>
-                <button class="btn-cancel-modal" (click)="showDelete = false">Cancelar</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal-overlay" *ngIf="showErrorModal">
-        <div class="modal">
-            <h3>No puedes eliminar tu cuenta</h3>
-            <p>Debes cancelar todas tus reservas confirmadas antes de eliminar tu cuenta.</p>
-            <div class="modal-actions">
-                <button class="btn-cancel-modal" (click)="showErrorModal = false">Cerrar</button>
-            </div>
-        </div>
-    </div>
-
 </div>
