@@ -61,19 +61,22 @@ public class PropertyService {
     }
 
     @Transactional
-    public void delete(Long id) {
-        List<Booking> bookings = bookingRepository.findByPropertyId(id);
-        boolean hasActiveBookings = bookings.stream()
-            .anyMatch(b -> ("CONFIRMED".equals(b.getStatus()) || "PENDING".equals(b.getStatus()))
-                && b.getCheckOut().isAfter(java.time.LocalDate.now()));
-        if (hasActiveBookings) {
-            throw new RuntimeException("Este alojamiento tiene reservas asociadas");
-        }
-        for (Booking booking : bookings) {
-            reviewRepository.deleteByBookingId(booking.getId());
-            bookingRepository.deleteById(booking.getId());
-        }
-        imageRepository.deleteByPropertyId(id);
-        repository.deleteById(id);
+public void delete(Long id) {
+    List<Booking> bookings = bookingRepository.findByPropertyId(id);
+    for (Booking b : bookings) {
+        System.out.println("Booking " + b.getId() + " status: " + b.getStatus() + " checkOut: " + b.getCheckOut() + " isAfter: " + b.getCheckOut().isAfter(java.time.LocalDate.now()));
     }
+    boolean hasActiveBookings = bookings.stream()
+        .anyMatch(b -> ("CONFIRMED".equals(b.getStatus()) || "PENDING".equals(b.getStatus()))
+            && b.getCheckOut().isAfter(java.time.LocalDate.now()));
+    if (hasActiveBookings) {
+        throw new RuntimeException("Este alojamiento tiene reservas asociadas");
+    }
+    for (Booking booking : bookings) {
+        reviewRepository.deleteByBookingId(booking.getId());
+        bookingRepository.deleteById(booking.getId());
+    }
+    imageRepository.deleteByPropertyId(id);
+    repository.deleteById(id);
+}
 }
