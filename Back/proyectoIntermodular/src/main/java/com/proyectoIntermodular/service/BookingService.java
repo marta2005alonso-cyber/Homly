@@ -42,10 +42,8 @@ public class BookingService {
         existing.setCheckOut(booking.getCheckOut());
         existing.setNumberOfGuests(booking.getNumberOfGuests());
         existing.setTotalPrice(booking.getTotalPrice());
-        existing.setStatus(booking.getStatus());
         return repository.save(existing);
     }
-
     public void delete(Long id) {
         reviewRepository.deleteByBookingId(id);
         repository.deleteById(id);
