@@ -8,6 +8,8 @@ package com.proyectoIntermodular.controller;
  *
  * @author marta
  */
+import com.proyectoIntermodular.model.Booking;
+import com.proyectoIntermodular.repository.BookingRepository;
 import com.proyectoIntermodular.model.Property;
 import com.proyectoIntermodular.service.PropertyService;
 import org.springframework.web.bind.annotation.*;

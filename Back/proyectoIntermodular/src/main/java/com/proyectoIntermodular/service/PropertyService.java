@@ -8,7 +8,9 @@ package com.proyectoIntermodular.service;
  *
  * @author marta
  */
+import com.proyectoIntermodular.model.Booking;
 import com.proyectoIntermodular.model.Property;
+import com.proyectoIntermodular.repository.BookingRepository;
 import com.proyectoIntermodular.repository.PropertyRepository;
 import com.proyectoIntermodular.repository.PropertyImageRepository;
 import org.springframework.stereotype.Service;
@@ -20,10 +22,12 @@ public class PropertyService {
 
     private final PropertyRepository repository;
     private final PropertyImageRepository imageRepository;
+    private final BookingRepository bookingRepository;
 
-    public PropertyService(PropertyRepository repository, PropertyImageRepository imageRepository) {
+    public PropertyService(PropertyRepository repository, PropertyImageRepository imageRepository, BookingRepository bookingRepository) {
         this.repository = repository;
         this.imageRepository = imageRepository;
+        this.bookingRepository = bookingRepository;
     }
 
     public List<Property> getAll() {
@@ -55,6 +59,12 @@ public class PropertyService {
 
     @Transactional
     public void delete(Long id) {
+        List<Booking> bookings = bookingRepository.findByPropertyId(id);
+        boolean hasActiveBookings = bookings.stream()
+            .anyMatch(b -> "CONFIRMED".equals(b.getStatus()) || "PENDING".equals(b.getStatus()));
+        if (hasActiveBookings) {
+            throw new RuntimeException("Este alojamiento tiene reservas asociadas");
+        }
         imageRepository.deleteByPropertyId(id);
         repository.deleteById(id);
     }

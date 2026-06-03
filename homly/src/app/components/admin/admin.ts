@@ -24,6 +24,7 @@ export class Admin {
   public deleteType: string = '';
   public pendingId: number = 0;
   public showLogoutModal: boolean = false;
+  public showErrorModal: boolean = false;
 
   constructor(
     private userService: UserService,
@@ -107,7 +108,11 @@ export class Admin {
           this.showDeleteModal = false;
           this.cdr.detectChanges();
         },
-        error: error => console.error('Error: ', error)
+        error: (error: any) => {
+            this.showDeleteModal = false;
+            this.showErrorModal = true;
+            this.cdr.detectChanges();
+        }
       });
     } else if (this.deleteType === 'review') {
       this.reviewService.deleteReview(this.pendingId).subscribe({
