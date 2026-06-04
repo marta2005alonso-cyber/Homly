@@ -2,13 +2,14 @@
     <button class="btn-back" (click)="goHome()">← Volver</button>
 
     <div class="container">
-        <h2>Mis reservas</h2>
-
+        <h2>MIS RESERVAS</h2>
+<p class="subtitle">Tus alojamientos reservados</p>
         <p class="no-bookings" *ngIf="bookings.length === 0">No tienes reservas todavía</p>
 
         <div class="booking-card" *ngFor="let booking of bookings">
             <div class="booking-info">
-                <h3>{{ booking.property.name }}</h3>
+                <h3 (click)="goToProperty(booking.property.id)" style="cursor:pointer; text-decoration:underline;">{{ booking.property.name }}</h3>
+
                 <p class="booking-location">{{ booking.property.city }}, {{ booking.property.country }}</p>
                 <div class="booking-dates">
                     <span>📅 {{ booking.checkIn }} → {{ booking.checkOut }}</span>

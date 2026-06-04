@@ -94,4 +94,8 @@ export class Bookings {
     const booking = this.bookings.find(b => b.id === id);
     return booking?.status === 'PENDING';
   }
+
+  goToProperty(id: number) {
+    this.router.navigate(['/property', id]);
+  }
 }
