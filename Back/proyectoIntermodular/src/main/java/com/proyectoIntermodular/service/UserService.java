@@ -56,11 +56,14 @@ public class UserService {
     }
 
     public void delete(Long id) {
+        List<Property> properties = propertyRepository.findByOwnerId(id);
+        if (!properties.isEmpty()) {
+            throw new RuntimeException("Este usuario tiene propiedades. Elimínalas antes.");
+        }
         List<Booking> bookings = bookingRepository.findByUserId(id);
         for (Booking b : bookings) {
             bookingRepository.deleteById(b.getId());
         }
-        List<Property> properties = propertyRepository.findByOwnerId(id);
         for (Property p : properties) {
             List<Booking> propertyBookings = bookingRepository.findByPropertyId(p.getId());
             for (Booking b : propertyBookings) {
@@ -97,6 +100,7 @@ public class UserService {
     public void deleteWithProperties(Long id) {
         List<Property> userProperties = propertyRepository.findByOwnerId(id);
         for (Property p : userProperties) {
+
             propertyRepository.deleteById(p.getId());
         }
         repository.deleteById(id);
