@@ -92,8 +92,9 @@
                 Total: <strong>{{ totalPrice }}€</strong>
             </p>
 
-            <button class="btn-reserve" *ngIf="property.type !== 'BOTH' || selectedType !== ''" (click)="reserve()">
-                {{ property.type === 'EXCHANGE' || selectedType === 'EXCHANGE' ? 'Solicitar intercambio' : 'Reservar' }}
+            <button class="btn-reserve" *ngIf="property.type !== 'BOTH' || selectedType !== ''" 
+                (click)="reserve()" [disabled]="saving">
+                {{ saving ? '⏳ Procesando...' : (property.type === 'EXCHANGE' || selectedType === 'EXCHANGE' ? 'Solicitar intercambio' : 'Reservar') }}
             </button>
         </div>
     </div>

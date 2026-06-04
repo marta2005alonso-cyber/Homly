@@ -34,6 +34,7 @@ export class PropertyDetail {
   public showSuccessModal: boolean = false;
   public images: any[] = [];
   public currentImage: number = 0;
+  public saving: boolean = false;
 
   constructor(
     private propertyService: PropertyService,
@@ -193,12 +194,18 @@ export class PropertyDetail {
       booking.offeredProperty = { id: this.selectedOfferedProperty.id };
     }
 
+    this.saving = true;
     this.bookingService.addBooking(booking).subscribe({
-      next: () => {
-        this.showSuccessModal = true;
-        this.cdr.detectChanges();
-      },
-      error: error => console.error('Error: ', error)
+        next: () => {
+            this.saving = false;
+            this.showSuccessModal = true;
+            this.cdr.detectChanges();
+        },
+        error: error => {
+            this.saving = false;
+            console.error('Error: ', error);
+            this.cdr.detectChanges();
+        }
     });
   }
 
