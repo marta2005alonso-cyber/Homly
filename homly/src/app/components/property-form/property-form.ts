@@ -75,7 +75,7 @@ export class PropertyForm {
     const files: FileList = event.target.files;
     for (let i = 0; i < files.length; i++) {
         if (files[i].size > 5 * 1024 * 1024) {
-            this.imageError = 'Una imagen supera el tamaño máximo de 10MB';
+            this.imageError = 'Una imagen supera el tamaño máximo de 5MB';
             return;
         }
         this.selectedFiles.push(files[i]);

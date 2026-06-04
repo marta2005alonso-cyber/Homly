@@ -48,6 +48,7 @@
                     <p class="admin-sub">📅 {{ booking.checkIn }} → {{ booking.checkOut }}</p>
                     <p class="admin-sub">{{ booking.status }} · {{ booking.totalPrice }}€</p>
                 </div>
+                    <button class="btn-delete" (click)="confirmDelete('booking', booking.id)">🗑 Eliminar</button>
             </div>
         </div>
 

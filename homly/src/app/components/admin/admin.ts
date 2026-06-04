@@ -102,23 +102,32 @@ export class Admin {
         error: error => console.error('Error: ', error)
       });
     } else if (this.deleteType === 'property') {
-    this.propertyService.deleteProperty(this.pendingId).subscribe({
+      this.propertyService.deleteProperty(this.pendingId).subscribe({
         next: () => {
-            this.properties = this.properties.filter(p => p.id !== this.pendingId);
-            this.showDeleteModal = false;
-            this.cdr.detectChanges();
+          this.properties = this.properties.filter(p => p.id !== this.pendingId);
+          this.showDeleteModal = false;
+          this.cdr.detectChanges();
         },
         error: (error: any) => {
-            this.showDeleteModal = false;
-            this.showErrorModal = true;
-            this.cdr.markForCheck();
-            this.cdr.detectChanges();
+          this.showDeleteModal = false;
+          this.showErrorModal = true;
+          this.cdr.markForCheck();
+          this.cdr.detectChanges();
         }
-    });
+      });
     } else if (this.deleteType === 'review') {
       this.reviewService.deleteReview(this.pendingId).subscribe({
         next: () => {
           this.reviews = this.reviews.filter(r => r.id !== this.pendingId);
+          this.showDeleteModal = false;
+          this.cdr.detectChanges();
+        },
+        error: error => console.error('Error: ', error)
+      });
+    } else if (this.deleteType === 'booking') {
+      this.bookingService.deleteBooking(this.pendingId).subscribe({
+        next: () => {
+          this.bookings = this.bookings.filter(b => b.id !== this.pendingId);
           this.showDeleteModal = false;
           this.cdr.detectChanges();
         },
@@ -138,6 +147,6 @@ export class Admin {
   }
 
   confirmLogout() {
-      this.showLogoutModal = true;
+    this.showLogoutModal = true;
   }
 }
