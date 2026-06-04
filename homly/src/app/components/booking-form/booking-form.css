@@ -135,7 +135,7 @@ h2 {
 }
 
 .price-value {
-    font-family: Georgia, serif;
+    font-family: 'Courier New', Courier, monospace;
     font-size: 1.8rem;
     font-weight: bold;
     color: #e07b54;
