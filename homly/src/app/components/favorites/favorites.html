@@ -1,27 +1,32 @@
-<div class="container">
+<div class="page-wrapper">
     <button class="btn-back" (click)="goHome()">← Volver</button>
 
-    <h2>Mis favoritos</h2>
-
-    <p *ngIf="favorites.length === 0">No tienes alojamientos favoritos todavía</p>
-
-    <div class="property-card" *ngFor="let favorite of favorites">
-        <div (click)="showDetails(favorite.property.id)">
-            <p class="property-name">{{ favorite.property.name }}</p>
-            <p class="property-location">{{ favorite.property.city }}, {{ favorite.property.country }}</p>
-            <p class="property-price">{{ favorite.property.pricePerNight }}€/noche</p>
+    <div class="container">
+        <div class="header-section">
+            <h2>Mis favoritos</h2>
+            <p class="subtitle">Alojamientos que te gustan</p>
         </div>
-        <button class="btn-delete" (click)="confirmDelete(favorite.id)">🗑 Eliminar de Favoritos</button>
-    </div>
-</div>
 
-<!-- Modal confirmación -->
-<div class="modal-overlay" *ngIf="showConfirmModal">
-    <div class="modal-box">
-        <p>¿Estás seguro de que quieres quitar este favorito?</p>
-        <div class="modal-buttons">
-            <button class="btn-confirm" (click)="deleteFavorite()">Sí, quitar</button>
-            <button class="btn-cancel" (click)="showConfirmModal = false">Cancelar</button>
+        <p class="no-favorites" *ngIf="favorites.length === 0">No tienes alojamientos favoritos todavía</p>
+
+        <div class="property-card" *ngFor="let favorite of favorites">
+            <div class="property-info" (click)="showDetails(favorite.property.id)">
+                <p class="property-name">{{ favorite.property.name }}</p>
+                <p class="property-location">{{ favorite.property.city }}, {{ favorite.property.country }}</p>
+                <p class="property-price">{{ favorite.property.pricePerNight }}€/noche</p>
+            </div>
+            <button class="btn-delete" (click)="confirmDelete(favorite.id)">🗑 Eliminar</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" *ngIf="showConfirmModal">
+        <div class="modal">
+            <h3>Eliminar favorito</h3>
+            <p>¿Estás seguro de que quieres quitar este favorito?</p>
+            <div class="modal-actions">
+                <button class="btn-confirm" (click)="deleteFavorite()">Sí, quitar</button>
+                <button class="btn-cancel-modal" (click)="showConfirmModal = false">Cancelar</button>
+            </div>
         </div>
     </div>
 </div>
