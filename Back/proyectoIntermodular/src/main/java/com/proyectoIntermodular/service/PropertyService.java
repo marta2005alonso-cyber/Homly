@@ -63,6 +63,9 @@ public class PropertyService {
     @Transactional
     public void delete(Long id) {
         List<Booking> bookings = bookingRepository.findByPropertyId(id);
+        for (Booking b : bookings) {
+    System.out.println("ID: " + b.getId() + " checkout: " + b.getCheckOut() + " status: " + b.getStatus() + " hoy: " + java.time.LocalDate.now());
+}
         boolean hasActiveBookings = bookings.stream()
                 .anyMatch(b -> ("CONFIRMED".equals(b.getStatus()) || "PENDING".equals(b.getStatus()))
                 && b.getCheckOut() != null
