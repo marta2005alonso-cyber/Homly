@@ -2,8 +2,10 @@
     <button class="btn-back" (click)="goHome()">← Volver</button>
 
     <div class="container">
-        <h2>MIS RESERVAS</h2>
-<p class="subtitle">Tus alojamientos reservados</p>
+        <div class="header-section">
+            <h2>Mis Reservas</h2>
+            <p class="subtitle">Tus alojamientos reservados</p>
+        </div>
         <p class="no-bookings" *ngIf="bookings.length === 0">No tienes reservas todavía</p>
 
         <div class="booking-card" *ngFor="let booking of bookings">
