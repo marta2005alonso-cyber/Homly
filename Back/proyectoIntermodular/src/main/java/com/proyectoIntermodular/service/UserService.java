@@ -16,6 +16,8 @@ import com.proyectoIntermodular.repository.PropertyRepository;
 import com.proyectoIntermodular.repository.ReviewRepository;
 import com.proyectoIntermodular.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import com.proyectoIntermodular.repository.PropertyImageRepository;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
@@ -25,12 +27,14 @@ public class UserService {
     private final BookingRepository bookingRepository;
     private final PropertyRepository propertyRepository;
     private final ReviewRepository reviewRepository;
+    private final PropertyImageRepository imageRepository;
 
-    public UserService(UserRepository repository, BookingRepository bookingRepository, PropertyRepository propertyRepository, ReviewRepository reviewRepository) {
+    public UserService(UserRepository repository, BookingRepository bookingRepository, PropertyRepository propertyRepository, ReviewRepository reviewRepository, PropertyImageRepository imageRepository) {
         this.repository = repository;
         this.bookingRepository = bookingRepository;
         this.propertyRepository = propertyRepository;
         this.reviewRepository = reviewRepository;
+        this.imageRepository = imageRepository;
     }
 
     public List<User> getAll() {
@@ -58,23 +62,48 @@ public class UserService {
         return repository.save(existing);
     }
 
+    @Transactional
     public void delete(Long id) {
+        // Comprobar reservas activas futuras como inquilino
+        List<Booking> bookingsAsUser = bookingRepository.findByUserId(id);
+        for (Booking b : bookingsAsUser) {
+            if (b.getCheckOut() != null && 
+                !b.getCheckOut().isBefore(java.time.LocalDate.now()) &&
+                "CONFIRMED".equals(b.getStatus())) {
+                throw new RuntimeException("Tienes reservas activas. Cancélalas antes.");
+            }
+        }
+
+        // Comprobar reservas activas futuras en propiedades del usuario
         List<Property> properties = propertyRepository.findByOwnerId(id);
-        if (!properties.isEmpty()) {
-            throw new RuntimeException("Este usuario tiene propiedades. Elimínalas antes.");
-        }
-        List<Booking> bookings = bookingRepository.findByUserId(id);
-        for (Booking b : bookings) {
-            reviewRepository.deleteByBookingId(b.getId());
-            bookingRepository.deleteById(b.getId());
-        }
         for (Property p : properties) {
             List<Booking> propertyBookings = bookingRepository.findByPropertyId(p.getId());
             for (Booking b : propertyBookings) {
+                if (b.getCheckOut() != null &&
+                    !b.getCheckOut().isBefore(java.time.LocalDate.now()) &&
+                    "CONFIRMED".equals(b.getStatus())) {
+                    throw new RuntimeException("Tienes reservas activas en tus propiedades. Cancélalas antes.");
+                }
+            }
+        }
+
+        // Borrar reservas pasadas del usuario como inquilino (con reseñas)
+        for (Booking b : bookingsAsUser) {
+            reviewRepository.deleteByBookingId(b.getId());
+            bookingRepository.deleteById(b.getId());
+        }
+
+        // Borrar propiedades con sus reservas pasadas, reseñas e imágenes
+        for (Property p : properties) {
+            List<Booking> propertyBookings = bookingRepository.findByPropertyId(p.getId());
+            for (Booking b : propertyBookings) {
+                reviewRepository.deleteByBookingId(b.getId());
                 bookingRepository.deleteById(b.getId());
             }
+            imageRepository.deleteByPropertyId(p.getId());
             propertyRepository.deleteById(p.getId());
         }
+
         repository.deleteById(id);
     }
     
