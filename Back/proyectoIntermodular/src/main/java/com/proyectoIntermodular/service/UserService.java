@@ -13,6 +13,7 @@ import com.proyectoIntermodular.model.Property;
 import com.proyectoIntermodular.model.User;
 import com.proyectoIntermodular.repository.BookingRepository;
 import com.proyectoIntermodular.repository.PropertyRepository;
+import com.proyectoIntermodular.repository.ReviewRepository;
 import com.proyectoIntermodular.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -23,11 +24,13 @@ public class UserService {
     private final UserRepository repository;
     private final BookingRepository bookingRepository;
     private final PropertyRepository propertyRepository;
-    
-    public UserService(UserRepository repository, BookingRepository bookingRepository, PropertyRepository propertyRepository) {
+    private final ReviewRepository reviewRepository;
+
+    public UserService(UserRepository repository, BookingRepository bookingRepository, PropertyRepository propertyRepository, ReviewRepository reviewRepository) {
         this.repository = repository;
         this.bookingRepository = bookingRepository;
         this.propertyRepository = propertyRepository;
+        this.reviewRepository = reviewRepository;
     }
 
     public List<User> getAll() {
@@ -62,6 +65,7 @@ public class UserService {
         }
         List<Booking> bookings = bookingRepository.findByUserId(id);
         for (Booking b : bookings) {
+            reviewRepository.deleteByBookingId(b.getId());
             bookingRepository.deleteById(b.getId());
         }
         for (Property p : properties) {
