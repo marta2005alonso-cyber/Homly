@@ -3,6 +3,7 @@ package com.proyectoIntermodular.model;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
@@ -12,7 +13,11 @@ public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate checkIn;
+    
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate checkOut;
     private int numberOfGuests;
     private double totalPrice;
