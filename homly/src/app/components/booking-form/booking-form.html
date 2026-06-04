@@ -2,20 +2,23 @@
     <button class="btn-back" (click)="goBack()" type="button">← Volver</button>
 
     <div class="container">
-        <h2>Editar reserva</h2>
+        <div class="header-section">
+            <h2>Editar reserva</h2>
+            <p class="subtitle">Modifica los datos de tu reserva</p>
+        </div>
 
         <form class="form" [formGroup]="form" (ngSubmit)="save()">
 
             <div class="form-field">
                 <label>Fecha de entrada</label>
                 <input type="date" formControlName="checkIn" *ngIf="!isExchange" [min]="getToday()" (change)="calculatePrice()" />
-                <input type="date" [value]="checkIn" readonly style="background:#f0ebe4; cursor:not-allowed;" *ngIf="isExchange" />
+                <input type="date" [value]="checkIn" readonly class="input-readonly" *ngIf="isExchange" />
             </div>
 
             <div class="form-field">
                 <label>Fecha de salida</label>
                 <input type="date" formControlName="checkOut" *ngIf="!isExchange" [min]="getMinCheckOut()" (change)="calculatePrice()" />
-                <input type="date" [value]="checkOut" readonly style="background:#f0ebe4; cursor:not-allowed;" *ngIf="isExchange" />
+                <input type="date" [value]="checkOut" readonly class="input-readonly" *ngIf="isExchange" />
             </div>
 
             <div class="form-field">
@@ -31,11 +34,14 @@
                     @if (form.get('numberOfGuests')?.errors?.['max']) {
                         <div class="error">El número de personas supera el máximo permitido</div>
                     }
-
                 }
             </div>
 
-            <p *ngIf="totalPrice > 0 && !isExchange">Precio total: <strong>{{ totalPrice }}€</strong></p>
+            <div class="price-box" *ngIf="totalPrice > 0 && !isExchange">
+                <span class="price-label">Precio total</span>
+                <span class="price-value">{{ totalPrice }}€</span>
+            </div>
+
             <button type="submit" class="btn-save" [disabled]="!form.valid">Guardar cambios</button>
 
         </form>
