@@ -79,7 +79,8 @@
                 <h4>¿Qué casa ofreces a cambio?</h4>
                 <p *ngIf="userProperties.length === 0">No tienes propiedades publicadas</p>
                 <div class="offered-card" *ngFor="let p of userProperties"
-                    [class.selected]="selectedOfferedProperty?.id === p.id" (click)="selectedOfferedProperty = p">
+                    [class.selected]="selectedOfferedProperty?.id === p.id" 
+                    (click)="selectOfferedProperty(p)">
                     <p class="offered-name">{{ p.name }}</p>
                     <p class="offered-location">{{ p.city }}, {{ p.country }}</p>
                 </div>

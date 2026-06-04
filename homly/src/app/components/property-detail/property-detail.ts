@@ -35,6 +35,7 @@ export class PropertyDetail {
   public images: any[] = [];
   public currentImage: number = 0;
   public saving: boolean = false;
+  public offeredPropertyBookings: any[] = [];
 
   constructor(
     private propertyService: PropertyService,
@@ -179,6 +180,17 @@ export class PropertyDetail {
       return;
     }
 
+    if (isExchange && this.selectedOfferedProperty) {
+        const ocupadaOfrecida = this.offeredPropertyBookings.some((b: any) =>
+            new Date(b.checkIn) < end && new Date(b.checkOut) > start
+        );
+        if (ocupadaOfrecida) {
+            this.dateError = 'Tu casa ya tiene reservas en esas fechas, elige otras fechas';
+            return;
+        }
+    }
+
+
     this.dateError = '';
 
     const booking: any = {
@@ -264,5 +276,15 @@ export class PropertyDetail {
 
   goToBookings() {
     this.router.navigate(['/bookings']);
+  }
+
+  selectOfferedProperty(p: any) {
+    this.selectedOfferedProperty = p;
+    this.bookingService.getByPropertyId(p.id).subscribe({
+        next: datos => {
+            this.offeredPropertyBookings = datos.filter((b: any) => b.status !== 'CANCELLED');
+        },
+        error: error => console.error('Error: ', error)
+    });
   }
 }
