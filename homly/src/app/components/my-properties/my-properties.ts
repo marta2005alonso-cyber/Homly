@@ -50,7 +50,12 @@ export class MyProperties {
   deleteProperty(id: number) {
     this.bookingService.getByPropertyId(id).subscribe({
       next: (bookings: any[]) => {
-        const active = bookings.filter(b => b.status !== 'CANCELLED');
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const active = bookings.filter(b =>
+          b.status !== 'CANCELLED' && b.checkOut &&
+          new Date(b.checkOut) > today
+        );
         if (active.length > 0) {
           this.showErrorModal = true;
           this.cdr.detectChanges();
