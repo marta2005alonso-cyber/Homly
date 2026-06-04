@@ -2,7 +2,10 @@
     <button class="btn-back" (click)="goBack()" type="button">← Volver</button>
 
     <div class="container">
-        <h2>Valorar estancia</h2>
+        <div class="header-section">
+            <h2>Valorar estancia</h2>
+            <p class="subtitle">Comparte tu experiencia</p>
+        </div>
 
         <form class="form" [formGroup]="form" (ngSubmit)="save()">
 
@@ -10,12 +13,12 @@
                 <label>Puntuación (1-5)</label>
                 <input type="number" formControlName="rating" min="1" max="5" />
                 @if (form.get('rating')?.invalid && (form.get('rating')?.dirty || form.get('rating')?.touched)) {
-                @if (form.get('rating')?.errors?.['required']) {
-                <div class="error">La puntuación es obligatoria</div>
-                }
-                @if (form.get('rating')?.errors?.['min'] || form.get('rating')?.errors?.['max']) {
-                <div class="error">La puntuación debe estar entre 1 y 5</div>
-                }
+                    @if (form.get('rating')?.errors?.['required']) {
+                        <div class="error">La puntuación es obligatoria</div>
+                    }
+                    @if (form.get('rating')?.errors?.['min'] || form.get('rating')?.errors?.['max']) {
+                        <div class="error">La puntuación debe estar entre 1 y 5</div>
+                    }
                 }
             </div>
 
@@ -23,12 +26,12 @@
                 <label>Comentario</label>
                 <textarea formControlName="comment" placeholder="Cuéntanos tu experiencia"></textarea>
                 @if (form.get('comment')?.invalid && (form.get('comment')?.dirty || form.get('comment')?.touched)) {
-                @if (form.get('comment')?.errors?.['required']) {
-                <div class="error">El comentario es obligatorio</div>
-                }
-                @if (form.get('comment')?.errors?.['minlength']) {
-                <div class="error">El comentario debe tener al menos 10 caracteres</div>
-                }
+                    @if (form.get('comment')?.errors?.['required']) {
+                        <div class="error">El comentario es obligatorio</div>
+                    }
+                    @if (form.get('comment')?.errors?.['minlength']) {
+                        <div class="error">El comentario debe tener al menos 10 caracteres</div>
+                    }
                 }
             </div>
 
@@ -36,6 +39,7 @@
 
         </form>
     </div>
+
     <div class="modal-overlay" *ngIf="showSaveModal">
         <div class="modal">
             <h3>Enviar valoración</h3>
