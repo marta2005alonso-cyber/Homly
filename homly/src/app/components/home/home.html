@@ -36,11 +36,6 @@
             <button (click)="onSearch()">Buscar</button>
         </div>
 
-        <div class="slide-dots">
-            <span *ngFor="let city of cities; let i = index"
-                class="dot" [class.active]="i === currentSlide"
-                (click)="setSlide(i)"></span>
-        </div>
     </div>
 </div>
 

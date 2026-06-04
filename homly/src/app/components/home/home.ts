@@ -42,7 +42,7 @@ export class Home {
     this.propertyService.getProperties().subscribe({
       next: datos => {
         const shuffled = datos.sort(() => Math.random() - 0.5);
-        this.properties = datos.slice(0, 6);
+        this.properties =shuffled.slice(0, 4);
       },
       error: error => console.error('Error: ', error)
     });
