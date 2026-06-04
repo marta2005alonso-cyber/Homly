@@ -22,7 +22,11 @@ export class Home implements OnInit, OnDestroy {
     { name: 'Sevilla', img: 'https://images.unsplash.com/photo-1555993539-1732b0258235?w=1600&q=80' },
     { name: 'Madrid', img: 'https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=1600&q=80' },
     { name: 'Barcelona', img: 'https://images.unsplash.com/photo-1583422409516-2895a77efded?w=1600&q=80' },
-    { name: 'Valencia', img: 'https://images.unsplash.com/photo-1591871937631-2f64059d234f?w=1600&q=80' },
+    { name: 'Milan', img: 'https://images.unsplash.com/photo-1610016302534-6f67f1c968d8?q=80&w=1075&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+    { name: 'Oporto', img: 'https://images.unsplash.com/photo-1585208798174-6cedd86e019a?q=80&w=1173&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+    { name: 'Francia', img: 'https://images.unsplash.com/photo-1503917988258-f87a78e3c995?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+
+    { name: 'Valencia', img: 'https://images.unsplash.com/photo-1725208179317-c5e56702816a?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
     { name: 'Granada', img: 'https://images.unsplash.com/photo-1562883676-8c7feb83f09b?w=1600&q=80' },
   ];
 
