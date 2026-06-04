@@ -9,19 +9,80 @@
     </div>
 </nav>
 
-<div>
-    <h1>Bienvenido a HOMLY</h1>
+<!-- HERO -->
+<div class="hero">
+    <div class="hero-slides">
+        <div class="hero-slide" *ngFor="let city of cities; let i = index"
+            [style.backgroundImage]="'url(' + city.img + ')'"
+            [class.active]="i === currentSlide">
+        </div>
+        <div class="hero-overlay"></div>
+    </div>
 
-    <div>
-        <input type="text" placeholder="¿A dónde vas?" [(ngModel)]="search.destination" />
-        <input type="date" [(ngModel)]="search.checkIn" [min]="getToday()" />
-        <input type="date" [(ngModel)]="search.checkOut" [min]="getMinCheckOut()" />
-        <input type="number" placeholder="Personas" [(ngModel)]="search.guests" />
-        <select [(ngModel)]="search.type">
-            <option value="">Tipo</option>
-            <option value="RENT">Alquiler</option>
-            <option value="EXCHANGE">Intercambio</option>
-        </select>
-        <button (click)="onSearch()">Buscar</button>
+    <div class="hero-content">
+        <h1 class="hero-title">HOMLY</h1>
+        <p class="hero-subtitle">Encuentra tu alojamiento perfecto o intercambia tu casa</p>
+
+        <div class="search-bar">
+            <input type="text" placeholder="¿A dónde vas?" [(ngModel)]="search.destination" />
+            <input type="date" [(ngModel)]="search.checkIn" [min]="getToday()" />
+            <input type="date" [(ngModel)]="search.checkOut" [min]="getMinCheckOut()" />
+            <input type="number" placeholder="Personas" [(ngModel)]="search.guests" />
+            <select [(ngModel)]="search.type">
+                <option value="">Tipo</option>
+                <option value="RENT">Alquiler</option>
+                <option value="EXCHANGE">Intercambio</option>
+            </select>
+            <button (click)="onSearch()">Buscar</button>
+        </div>
+
+        <div class="slide-dots">
+            <span *ngFor="let city of cities; let i = index"
+                class="dot" [class.active]="i === currentSlide"
+                (click)="setSlide(i)"></span>
+        </div>
     </div>
 </div>
+
+<!-- PROPIEDADES -->
+<div class="properties-section">
+    <h2 class="section-title">Alojamientos destacados</h2>
+    <p class="section-sub">Descubre algunos de nuestros espacios más populares</p>
+
+    <div class="properties-grid">
+        <div class="property-card" *ngFor="let property of properties" (click)="goToDetail(property.id)">
+            <div class="card-price">{{ property.pricePerNight }}€/noche</div>
+            <div class="card-body">
+                <p class="card-name">{{ property.name }}</p>
+                <p class="card-location">📍 {{ property.city }}, {{ property.country }}</p>
+                <p class="card-type" *ngIf="property.type === 'RENT'">🏠 Alquiler</p>
+                <p class="card-type" *ngIf="property.type === 'EXCHANGE'">🔄 Intercambio</p>
+                <p class="card-type" *ngIf="property.type === 'BOTH'">🏠 Alquiler · 🔄 Intercambio</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="see-more">
+        <button (click)="onSearch()">Ver todos los alojamientos →</button>
+    </div>
+</div>
+
+<!-- PIE DE PÁGINA -->
+<footer>
+    <div class="footer-content">
+        <div class="footer-brand">
+            <span class="footer-logo">HOMLY</span>
+            <p>Alquila o intercambia tu hogar con personas de confianza.</p>
+        </div>
+        <div class="footer-links">
+            <span (click)="onSearch()">Explorar alojamientos</span>
+            <span *ngIf="!user" (click)="goToLogin()">Iniciar sesión</span>
+            <span *ngIf="user" (click)="goToMyProperties()">Mis alojamientos</span>
+            <span *ngIf="user" (click)="goToBookings()">Mis reservas</span>
+            <span *ngIf="user" (click)="goToFavorites()">Mis favoritos</span>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 Homly · Proyecto Intermodular</p>
+    </div>
+</footer>

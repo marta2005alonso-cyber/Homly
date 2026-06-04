@@ -15,6 +15,17 @@ import { AuthService } from '../../services/auth-service';
 export class Home {
   public properties: any[] = [];
   public user: any = null;
+  public currentSlide: number = 0;
+  private slideInterval: any;
+
+  public cities = [
+    { name: 'Sevilla', img: 'https://images.unsplash.com/photo-1555993539-1732b0258235?w=1600&q=80' },
+    { name: 'Madrid', img: 'https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=1600&q=80' },
+    { name: 'Barcelona', img: 'https://images.unsplash.com/photo-1583422409516-2895a77efded?w=1600&q=80' },
+    { name: 'Valencia', img: 'https://images.unsplash.com/photo-1591871937631-2f64059d234f?w=1600&q=80' },
+    { name: 'Granada', img: 'https://images.unsplash.com/photo-1562883676-8c7feb83f09b?w=1600&q=80' },
+  ];
+
 
   public search = {
     destination: '',
@@ -30,10 +41,22 @@ export class Home {
     this.user = this.authService.getUser();
     this.propertyService.getProperties().subscribe({
       next: datos => {
+        const shuffled = datos.sort(() => Math.random() - 0.5);
         this.properties = datos.slice(0, 6);
       },
       error: error => console.error('Error: ', error)
     });
+    this.slideInterval = setInterval(() => {
+      this.currentSlide = (this.currentSlide + 1) % this.cities.length;
+    }, 4000);
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.slideInterval);
+  }
+
+  setSlide(index: number) {
+    this.currentSlide = index;
   }
 
   onSearch() {
