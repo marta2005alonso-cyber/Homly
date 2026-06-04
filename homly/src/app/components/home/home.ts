@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectorRef} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -35,7 +35,12 @@ export class Home implements OnInit, OnDestroy {
     checkOut: '',
   };
 
-  constructor(private propertyService: PropertyService, private router: Router, private authService: AuthService) { }
+  constructor(
+    private propertyService: PropertyService, 
+    private router: Router, 
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef
+  ) { }
 
   ngOnInit() {
     this.user = this.authService.getUser();
@@ -43,11 +48,13 @@ export class Home implements OnInit, OnDestroy {
       next: datos => {
         const shuffled = datos.sort(() => Math.random() - 0.5);
         this.properties =shuffled.slice(0, 4);
+        this.cdr.detectChanges();
       },
       error: error => console.error('Error: ', error)
     });
     this.slideInterval = setInterval(() => {
       this.currentSlide = (this.currentSlide + 1) % this.cities.length;
+      this.cdr.detectChanges();
     }, 4000);
   }
 
