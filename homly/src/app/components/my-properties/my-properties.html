@@ -2,12 +2,17 @@
     <button class="btn-back" (click)="goHome()">← Volver</button>
 
     <div class="container">
-        <div class="header">
-            <h2>Mis alojamientos</h2>
-            <button class="btn-add" (click)="addProperty()">+ Publicar alojamiento</button>
+        <div class="header-section">
+            <div class="header">
+                <div>
+                    <h2>Mis alojamientos</h2>
+                    <p class="subtitle">Gestiona tus propiedades</p>
+                </div>
+                <button class="btn-add" (click)="addProperty()">+ Publicar alojamiento</button>
+            </div>
         </div>
 
-        <p *ngIf="properties.length === 0">No tienes alojamientos publicados todavía</p>
+        <p class="no-properties" *ngIf="properties.length === 0">No tienes alojamientos publicados todavía</p>
 
         <div class="property-card" *ngFor="let property of properties">
             <div class="property-info">

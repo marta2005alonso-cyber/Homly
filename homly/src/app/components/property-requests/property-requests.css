@@ -6,9 +6,7 @@
     color: #2c2420;
 }
 
-body {
-    background: #faf8f5;
-}
+body { background: #faf8f5; }
 
 .page-wrapper {
     max-width: 900px;
@@ -25,6 +23,7 @@ body {
     display: inline-block;
     font-size: 0.9rem;
     transition: all 0.2s;
+    color: #2c2420;
 }
 
 .btn-back:hover {
@@ -33,32 +32,69 @@ body {
     border-color: #2c2420;
 }
 
-.container {
-    padding: 0 0 48px;
+.container { padding: 0 0 48px; }
+
+.header-section {
+    background: linear-gradient(135deg, #2c2420 0%, #4a3830 100%);
+    border-radius: 24px;
+    padding: 36px 40px;
+    margin-bottom: 32px;
+    text-align: center;
 }
 
 h2 {
     font-family: Georgia, serif;
     font-size: 2rem;
-    margin-bottom: 28px;
+    margin-bottom: 6px;
+    color: white;
+}
+
+.subtitle {
+    color: #e07b54;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.no-requests {
+    color: #9b8880;
+    font-style: italic;
+    text-align: center;
+    margin-top: 40px;
 }
 
 .request-card {
     background: white;
-    border-radius: 20px;
+    border-radius: 24px;
     padding: 24px 28px;
     margin-bottom: 16px;
-    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 2px 20px rgba(44, 36, 32, 0.07);
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-left: 4px solid #e07b54;
+    transition: all 0.25s;
+    border-top: 1px solid #f0ebe4;
+    border-right: 1px solid #f0ebe4;
+    border-bottom: 1px solid #f0ebe4;
+    animation: fadeUp 0.4s ease;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.request-card:hover {
+    box-shadow: 0 8px 32px rgba(224, 123, 84, 0.2);
+    transform: translateY(-3px);
 }
 
 .request-info h3 {
     font-family: Georgia, serif;
     font-size: 1.1rem;
     margin-bottom: 8px;
+    color: #e07b54;
 }
 
 .request-location {
@@ -72,7 +108,11 @@ h2 {
     gap: 16px;
     font-size: 0.88rem;
     color: #5a4a44;
-    margin-top: 8px;
+    margin-top: 10px;
+    background: #faf8f5;
+    padding: 8px 14px;
+    border-radius: 10px;
+    width: fit-content;
 }
 
 .request-actions {
@@ -82,7 +122,7 @@ h2 {
 }
 
 .btn-accept {
-    background: #2e7d32;
+    background: linear-gradient(135deg, #2e7d32, #1b5e20);
     border: none;
     border-radius: 50px;
     padding: 10px 20px;
@@ -90,10 +130,12 @@ h2 {
     cursor: pointer;
     font-size: 0.85rem;
     transition: all 0.2s;
+    box-shadow: 0 3px 12px rgba(46, 125, 50, 0.25);
 }
 
 .btn-accept:hover {
-    background: #1b5e20;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 16px rgba(46, 125, 50, 0.35);
 }
 
 .btn-reject {
@@ -120,27 +162,40 @@ h2 {
     align-items: center;
     justify-content: center;
     z-index: 999;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .modal {
     background: white;
-    border-radius: 20px;
-    padding: 36px;
-    width: 380px;
+    border-radius: 24px;
+    padding: 40px;
+    width: 400px;
     text-align: center;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.18);
+    animation: popIn 0.25s ease;
+}
+
+@keyframes popIn {
+    from { opacity: 0; transform: scale(0.92); }
+    to { opacity: 1; transform: scale(1); }
 }
 
 .modal h3 {
     font-family: Georgia, serif;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     margin-bottom: 12px;
+    color: #2c2420;
 }
 
 .modal p {
     color: #5a4a44;
     font-size: 0.95rem;
-    margin-bottom: 24px;
+    margin-bottom: 28px;
 }
 
 .modal-actions {
@@ -153,7 +208,7 @@ h2 {
     background: #2c2420;
     border: none;
     border-radius: 50px;
-    padding: 12px 24px;
+    padding: 12px 28px;
     color: white;
     cursor: pointer;
     font-size: 0.9rem;
@@ -162,18 +217,17 @@ h2 {
 
 .btn-confirm:hover {
     background: #4a3830;
+    transform: translateY(-1px);
 }
 
 .btn-cancel-modal {
     background: none;
     border: 1px solid #e0d8d0;
     border-radius: 50px;
-    padding: 12px 24px;
+    padding: 12px 28px;
     cursor: pointer;
     font-size: 0.9rem;
     transition: all 0.2s;
 }
 
-.btn-cancel-modal:hover {
-    background: #f0ebe4;
-}
+.btn-cancel-modal:hover { background: #f0ebe4; }

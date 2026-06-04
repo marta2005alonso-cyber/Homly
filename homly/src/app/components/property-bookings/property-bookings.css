@@ -23,6 +23,7 @@ body { background: #faf8f5; }
     display: inline-block;
     font-size: 0.9rem;
     transition: all 0.2s;
+    color: #2c2420;
 }
 
 .btn-back:hover {
@@ -33,27 +34,65 @@ body { background: #faf8f5; }
 
 .container { padding: 0 0 48px; }
 
+.header-section {
+    background: linear-gradient(135deg, #2c2420 0%, #4a3830 100%);
+    border-radius: 24px;
+    padding: 36px 40px;
+    margin-bottom: 32px;
+    text-align: center;
+}
+
 h2 {
     font-family: Georgia, serif;
     font-size: 2rem;
-    margin-bottom: 28px;
+    margin-bottom: 6px;
+    color: white;
+}
+
+.subtitle {
+    color: #e07b54;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.no-bookings {
+    color: #9b8880;
+    font-style: italic;
+    text-align: center;
+    margin-top: 40px;
 }
 
 .booking-card {
     background: white;
-    border-radius: 20px;
+    border-radius: 24px;
     padding: 24px 28px;
     margin-bottom: 16px;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+    box-shadow: 0 2px 20px rgba(44, 36, 32, 0.07);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border: 1px solid #f0ebe4;
+    transition: all 0.25s;
+    animation: fadeUp 0.4s ease;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.booking-card:hover {
+    box-shadow: 0 8px 32px rgba(224, 123, 84, 0.2);
+    transform: translateY(-3px);
+    border-color: #e07b54;
 }
 
 .booking-info h3 {
     font-family: Georgia, serif;
     font-size: 1.1rem;
     margin-bottom: 8px;
+    color: #e07b54;
 }
 
 .booking-dates {
@@ -62,11 +101,15 @@ h2 {
     font-size: 0.88rem;
     margin-bottom: 10px;
     color: #5a4a44;
+    background: #faf8f5;
+    padding: 8px 14px;
+    border-radius: 10px;
+    width: fit-content;
 }
 
 .booking-price {
     font-size: 0.9rem;
-    margin-bottom: 10px;
+    margin: 10px 0;
 }
 
 .booking-price strong {
@@ -76,20 +119,24 @@ h2 {
 
 .booking-status {
     display: inline-block;
-    padding: 4px 12px;
+    padding: 5px 14px;
     border-radius: 50px;
-    font-size: 0.78rem;
-    font-weight: 500;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
 }
 
 .status-confirmed {
     background: #e8f5e9;
     color: #2e7d32;
+    border: 1px solid #a5d6a7;
 }
 
 .status-cancelled {
     background: #ffebee;
     color: #c0392b;
+    border: 1px solid #ffcdd2;
 }
 
 .btn-cancel {
@@ -114,6 +161,11 @@ button:disabled {
     filter: grayscale(100%);
 }
 
+.booking-actions {
+    display: flex;
+    gap: 12px;
+}
+
 .modal-overlay {
     position: fixed;
     inset: 0;
@@ -122,27 +174,40 @@ button:disabled {
     align-items: center;
     justify-content: center;
     z-index: 999;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .modal {
     background: white;
-    border-radius: 20px;
-    padding: 36px;
-    width: 380px;
+    border-radius: 24px;
+    padding: 40px;
+    width: 400px;
     text-align: center;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.18);
+    animation: popIn 0.25s ease;
+}
+
+@keyframes popIn {
+    from { opacity: 0; transform: scale(0.92); }
+    to { opacity: 1; transform: scale(1); }
 }
 
 .modal h3 {
     font-family: Georgia, serif;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     margin-bottom: 12px;
+    color: #2c2420;
 }
 
 .modal p {
     color: #5a4a44;
     font-size: 0.95rem;
-    margin-bottom: 24px;
+    margin-bottom: 28px;
 }
 
 .modal-actions {
@@ -155,7 +220,7 @@ button:disabled {
     background: #2c2420;
     border: none;
     border-radius: 50px;
-    padding: 12px 24px;
+    padding: 12px 28px;
     color: white;
     cursor: pointer;
     font-size: 0.9rem;
@@ -164,21 +229,20 @@ button:disabled {
 
 .btn-confirm:hover {
     background: #4a3830;
+    transform: translateY(-1px);
 }
 
 .btn-cancel-modal {
     background: none;
     border: 1px solid #e0d8d0;
     border-radius: 50px;
-    padding: 12px 24px;
+    padding: 12px 28px;
     cursor: pointer;
     font-size: 0.9rem;
     transition: all 0.2s;
 }
 
-.btn-cancel-modal:hover {
-    background: #f0ebe4;
-}
+.btn-cancel-modal:hover { background: #f0ebe4; }
 
 .btn-delete {
     background: none;
@@ -194,9 +258,4 @@ button:disabled {
 .btn-delete:hover {
     background: #c0392b;
     color: white;
-}
-
-.booking-actions {
-    display: flex;
-    gap: 12px;
 }

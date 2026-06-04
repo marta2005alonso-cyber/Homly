@@ -2,9 +2,12 @@
     <button class="btn-back" (click)="goBack()">← Volver</button>
 
     <div class="container">
-        <h2>Reservas de {{ propertyName }}</h2>
+        <div class="header-section">
+            <h2>Reservas de {{ propertyName }}</h2>
+            <p class="subtitle">Huéspedes confirmados</p>
+        </div>
 
-        <p *ngIf="bookings.length === 0">No hay reservas confirmadas</p>
+        <p class="no-bookings" *ngIf="bookings.length === 0">No hay reservas confirmadas</p>
 
         <div class="booking-card" *ngFor="let booking of bookings">
             <div class="booking-info">

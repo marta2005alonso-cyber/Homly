@@ -6,9 +6,7 @@
     color: #2c2420;
 }
 
-body {
-    background: #faf8f5;
-}
+body { background: #faf8f5; }
 
 .page-wrapper {
     max-width: 900px;
@@ -25,6 +23,7 @@ body {
     display: inline-block;
     font-size: 0.9rem;
     transition: all 0.2s;
+    color: #2c2420;
 }
 
 .btn-back:hover {
@@ -33,20 +32,33 @@ body {
     border-color: #2c2420;
 }
 
-.container {
-    padding: 0 0 48px;
+.container { padding: 0 0 48px; }
+
+.header-section {
+    background: linear-gradient(135deg, #2c2420 0%, #4a3830 100%);
+    border-radius: 24px;
+    padding: 32px 36px;
+    margin-bottom: 32px;
 }
 
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 28px;
 }
 
 h2 {
     font-family: Georgia, serif;
     font-size: 2rem;
+    color: white;
+    margin-bottom: 4px;
+}
+
+.subtitle {
+    color: #e07b54;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
 }
 
 .btn-add {
@@ -57,28 +69,61 @@ h2 {
     color: white;
     cursor: pointer;
     font-size: 0.9rem;
-    transition: background 0.2s;
+    transition: all 0.2s;
+    box-shadow: 0 4px 16px rgba(224, 123, 84, 0.3);
+    white-space: nowrap;
 }
 
 .btn-add:hover {
     background: #c96640;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(224, 123, 84, 0.4);
+}
+
+.no-properties {
+    color: #9b8880;
+    font-style: italic;
+    text-align: center;
+    margin-top: 40px;
 }
 
 .property-card {
     background: white;
-    border-radius: 20px;
+    border-radius: 24px;
     padding: 24px 28px;
     margin-bottom: 16px;
-    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 2px 20px rgba(44, 36, 32, 0.07);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    transition: all 0.25s;
+    border: 1px solid #f0ebe4;
+    animation: fadeUp 0.4s ease;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.property-card:hover {
+    box-shadow: 0 8px 32px rgba(224, 123, 84, 0.2);
+    transform: translateY(-3px);
+    border-color: #e07b54;
 }
 
 .property-name {
+    font-family: Georgia, serif;
     font-weight: 600;
     font-size: 1.1rem;
     margin-bottom: 4px;
+    color: #e07b54;
+    transition: color 0.2s;
+}
+
+.property-name:hover {
+    color: #c96640;
+    text-decoration: underline;
 }
 
 .property-location {
@@ -90,6 +135,7 @@ h2 {
 .property-price {
     color: #e07b54;
     font-weight: bold;
+    font-size: 1rem;
     margin-bottom: 4px;
 }
 
@@ -100,7 +146,9 @@ h2 {
 
 .property-actions {
     display: flex;
-    gap: 12px;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
 }
 
 .btn-edit {
@@ -173,27 +221,40 @@ h2 {
     align-items: center;
     justify-content: center;
     z-index: 999;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .modal {
     background: white;
-    border-radius: 20px;
-    padding: 36px;
-    width: 380px;
+    border-radius: 24px;
+    padding: 40px;
+    width: 400px;
     text-align: center;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.18);
+    animation: popIn 0.25s ease;
+}
+
+@keyframes popIn {
+    from { opacity: 0; transform: scale(0.92); }
+    to { opacity: 1; transform: scale(1); }
 }
 
 .modal h3 {
     font-family: Georgia, serif;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     margin-bottom: 12px;
+    color: #2c2420;
 }
 
 .modal p {
     color: #5a4a44;
     font-size: 0.95rem;
-    margin-bottom: 24px;
+    margin-bottom: 28px;
 }
 
 .modal-actions {
@@ -206,7 +267,7 @@ h2 {
     background: #2c2420;
     border: none;
     border-radius: 50px;
-    padding: 12px 24px;
+    padding: 12px 28px;
     color: white;
     cursor: pointer;
     font-size: 0.9rem;
@@ -215,21 +276,20 @@ h2 {
 
 .btn-confirm:hover {
     background: #4a3830;
+    transform: translateY(-1px);
 }
 
 .btn-cancel-modal {
     background: none;
     border: 1px solid #e0d8d0;
     border-radius: 50px;
-    padding: 12px 24px;
+    padding: 12px 28px;
     cursor: pointer;
     font-size: 0.9rem;
     transition: all 0.2s;
 }
 
-.btn-cancel-modal:hover {
-    background: #f0ebe4;
-}
+.btn-cancel-modal:hover { background: #f0ebe4; }
 
 .error-message {
     color: #c0392b;

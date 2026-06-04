@@ -2,7 +2,10 @@
     <button class="btn-back" (click)="goBack()">← Volver</button>
 
     <div class="container">
-        <h2>{{ id == -1 ? 'Publicar alojamiento' : 'Editar alojamiento' }}</h2>
+        <div class="header-section">
+            <h2>{{ id == -1 ? 'Publicar alojamiento' : 'Editar alojamiento' }}</h2>
+            <p class="subtitle">{{ id == -1 ? 'Comparte tu espacio con el mundo' : 'Actualiza los datos de tu alojamiento' }}</p>
+        </div>
 
         <form class="form" #propertyForm="ngForm">
             <div class="form-field">
