@@ -2,86 +2,16 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Georgia, serif;
-    color: #3a2e2e;
+    font-family: Arial, sans-serif;
+    color: #2c2420;
 }
 
-body {
-    background: #faf7f2;
-}
+body { background: #faf8f5; }
 
-h2 {
-    font-size: 1.8rem;
-    padding: 30px 40px 20px;
-    color: #3a2e2e;
-}
-
-.no-results {
-    text-align: center;
-    color: #888;
-    font-style: italic;
-    padding: 40px;
-}
-
-.property-card {
-    background: white;
-    border-radius: 16px;
-    padding: 20px;
-    margin: 0 40px 16px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: transform 0.2s;
-}
-
-.property-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
-}
-
-.property-name {
-    font-size: 1.1rem;
-    font-weight: bold;
-    margin-bottom: 6px;
-}
-
-.property-location {
-    color: #888;
-    font-size: 0.9rem;
-}
-
-.property-price {
-    color: #e07b54;
-    font-weight: bold;
-    font-size: 1.1rem;
-}
-
-.property-guests {
-    color: #888;
-    font-size: 0.85rem;
-    margin-top: 4px;
-}
-
-.btn-favorite {
-    background: none;
-    border: 1px solid #e07b54;
-    border-radius: 50%;
-    width: 36px;
-    height: 36px;
-    cursor: pointer;
-    font-size: 1rem;
-}
-
-.btn-favorite:hover {
-    background: #e07b54;
-}
-
-.property-type {
-    font-size: 0.85rem;
-    color: #e07b54;
-    margin-top: 4px;
+.page-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px 48px;
 }
 
 .btn-back {
@@ -94,6 +24,7 @@ h2 {
     display: inline-block;
     font-size: 0.9rem;
     transition: all 0.2s;
+    color: #2c2420;
 }
 
 .btn-back:hover {
@@ -102,8 +33,107 @@ h2 {
     border-color: #2c2420;
 }
 
-.page-wrapper {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 40px;
+.header-section {
+    background: linear-gradient(135deg, #2c2420 0%, #4a3830 100%);
+    border-radius: 24px;
+    padding: 36px 40px;
+    margin-bottom: 32px;
+    text-align: center;
+}
+
+h2 {
+    font-family: Georgia, serif;
+    font-size: 2rem;
+    margin-bottom: 6px;
+    color: white;
+}
+
+.subtitle {
+    color: #e07b54;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.no-results {
+    text-align: center;
+    color: #9b8880;
+    font-style: italic;
+    padding: 40px;
+}
+
+.property-card {
+    background: white;
+    border-radius: 24px;
+    padding: 24px 28px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 20px rgba(44, 36, 32, 0.07);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #f0ebe4;
+    transition: all 0.25s;
+    animation: fadeUp 0.4s ease;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.property-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 32px rgba(224, 123, 84, 0.2);
+    border-color: #e07b54;
+}
+
+.property-info { flex: 1; }
+
+.property-name {
+    font-family: Georgia, serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2c2420;
+    margin-bottom: 6px;
+    transition: color 0.2s;
+}
+
+.property-card:hover .property-name { color: #e07b54; }
+
+.property-location {
+    color: #9b8880;
+    font-size: 0.88rem;
+    margin-bottom: 4px;
+}
+
+.property-guests {
+    color: #9b8880;
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+}
+
+.property-type {
+    font-size: 0.85rem;
+    color: #e07b54;
+    font-weight: 500;
+    margin-top: 4px;
+}
+
+.property-price-box {
+    text-align: right;
+    margin-left: 24px;
+}
+
+.property-price {
+    font-family: Georgia, serif;
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #e07b54;
+    display: block;
+}
+
+.price-label {
+    font-size: 0.8rem;
+    color: #9b8880;
 }
