@@ -48,7 +48,6 @@
                     <p class="admin-sub">📅 {{ booking.checkIn }} → {{ booking.checkOut }}</p>
                     <p class="admin-sub">{{ booking.status }} · {{ booking.totalPrice }}€</p>
                 </div>
-                    <button class="btn-delete" (click)="confirmDelete('booking', booking.id)">🗑 Eliminar</button>
             </div>
         </div>
 
@@ -93,6 +92,16 @@
             <p>Este alojamiento tiene reservas asociadas. </p>
             <div class="modal-actions">
                 <button class="btn-confirm" (click)="showErrorModal = false">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" *ngIf="showErrorUserModal">
+        <div class="modal">
+            <h3>No se puede eliminar</h3>
+            <p>Este usuario tiene propiedades con reservas activas. Cancélalas antes de eliminarlo.</p>
+            <div class="modal-actions">
+                <button class="btn-confirm" (click)="showErrorUserModal = false">Cerrar</button>
             </div>
         </div>
     </div>
