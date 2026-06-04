@@ -103,10 +103,14 @@ export class Profile {
   checkBookingsBeforeDelete() {
     this.bookingService.getBookings().subscribe({
       next: datos => {
-        const confirmedBookings = datos.filter((b: any) =>
+        const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const confirmedBookings = datos.filter((b: any) =>
           (b.user.id === this.user.id || b.property.owner.id === this.user.id) &&
-          b.status === 'CONFIRMED'
-        );
+          b.status === 'CONFIRMED' &&
+          b.checkOut &&
+          new Date(b.checkOut) > today
+      );
 
         if (confirmedBookings.length > 0) {
           this.showErrorModal = true;
