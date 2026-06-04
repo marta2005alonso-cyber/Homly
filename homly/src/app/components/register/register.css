@@ -88,6 +88,8 @@ input[type="number"] {
     display: inline-block;
     font-size: 0.9rem;
     transition: all 0.2s;
+    color: #2c2420;
+
 }
 
 .btn-back:hover {
