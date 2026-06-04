@@ -64,7 +64,8 @@ public class PropertyService {
     public void delete(Long id) {
         List<Booking> bookings = bookingRepository.findByPropertyId(id);
         boolean hasActiveBookings = bookings.stream()
-            .anyMatch(b -> ("CONFIRMED".equals(b.getStatus()) || "PENDING".equals(b.getStatus()))
+                .anyMatch(b -> ("CONFIRMED".equals(b.getStatus()) || "PENDING".equals(b.getStatus()))
+                && b.getCheckOut() != null
                 && !b.getCheckOut().isBefore(java.time.LocalDate.now()));
         if (hasActiveBookings) {
             throw new RuntimeException("Este alojamiento tiene reservas asociadas");
